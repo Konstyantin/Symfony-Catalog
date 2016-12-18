@@ -1,8 +1,31 @@
 {% trans_default_domain 'FOSUserBundle' %}
 
-{{ form_start(form, { 'action': path('fos_user_profile_edit'), 'attr': { 'class': 'fos_user_profile_edit' } }) }}
-    {{ form_widget(form) }}
-    <div>
-        <input type="submit" value="{{ 'profile.edit.submit'|trans }}" />
+<div class="container">
+    <div class="col-lg-6 col-lg-offset-3">
+        <h2 class="text-center">Profile Edir </h2>
+        {{ form_start(form, { 'action': path('fos_user_profile_edit'), 'attr': { 'class': 'fos_user_profile_edit' } }) }}
+        <div class="form-group">
+            {{ form_widget(form.username, {'attr': {'class': 'form-control', 'placeholder': 'form.username', 'required': 'required'}}) }}
+            {% for errorItem in form.username.vars.errors %}
+                <label class="control-label has-error" for="{{ form.username.vars.id }}">{{ errorItem.message|trans }}</label>
+            {% endfor %}
+        </div>
+        <div class="form-group">
+            {{ form_widget(form.email, {'attr': {'class': 'form-control', 'placeholder': 'form.username', 'required': 'required'}}) }}
+            {% for errorItem in form.email.vars.errors %}
+                <label class="control-label has-error" for="{{ form.email.vars.id }}">{{ errorItem.message|trans }}</label>
+            {% endfor %}
+        </div>
+        <div class="form-group">
+            {{ form_widget(form.current_password, {'attr': {'class': 'form-control', 'placeholder': 'form.password', 'required': 'required'}}) }}
+            {% for errorItem in form.current_password.vars.errors %}
+                <label class="control-label has-error" for="{{ form.current_password.vars.id }}">{{ errorItem.message|trans }}</label>
+            {% endfor %}
+        </div>
+        {{ form_widget(form) }}
+        <div>
+            <input class="btn btn-success" type="submit" value="{{ 'profile.edit.submit'|trans }}" />
+        </div>
+        {{ form_end(form) }}
     </div>
-{{ form_end(form) }}
+</div>
