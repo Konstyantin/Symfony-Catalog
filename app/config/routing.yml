@@ -17,3 +17,8 @@ admin_area:
 category:
     resource: "@CategoryBundle/Resources/config/routing.yml"
     prefix:   /category
+
+_sonata_admin:
+    resource: .
+    type: sonata_admin
+    prefix: /admin
