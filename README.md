@@ -1,11 +1,33 @@
-Symfony Standard Edition
-========================
+Symfony-Catalog
+===============
 
 Welcome to the Symfony Standard Edition - a fully-functional Symfony
 application that you can use as the skeleton for your new applications.
 
 For details on how to download and get started with Symfony, see the
 [Installation][1] chapter of the Symfony Documentation.
+
+Testing
+=======
+Tests are located in tests directory. By default test suites:
+  
+  * unit
+  
+  * functional
+  
+Tests can be executed by running
+
+~~~~~~~~
+phpunit  
+~~~~~~~~
+
+Loading Fixtures
+================
+You can load fixtures via the command line by using the doctrine:fixtures:load command:
+  
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+php bin/console doctrine:fixtures:load 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 What's inside?
 --------------
@@ -52,11 +74,21 @@ It comes pre-configured with the following bundles:
 
   * **DebugBundle** (in dev/test env) - Adds Debug and VarDumper component
     integration
+    
+  * [**FOSUserBundle**][14] (in dev/test env) - Provides a flexible framework for
+    user management that aims to handle common tasks such as user registration
+    and password retrieval 
+    
+  * [**DoctrineMigrationsBundle**][15] (in dev/test env) - Allow safely and
+    quickly manage database migrations.
+    
+  * [**Sonata Admin Bundle**][16] (in dev/test env) - The missing Symfony
+   Admin Generator
+   
+  * [**KnpPaginatorBundle**][17] (in dev/test env) - Paginator to paginate everything 
 
 All libraries and bundles included in the Symfony Standard Edition are
 released under the MIT or BSD license.
-
-Enjoy!
 
 [1]:  https://symfony.com/doc/3.2/setup.html
 [6]:  https://symfony.com/doc/current/bundles/SensioFrameworkExtraBundle/index.html
@@ -67,3 +99,7 @@ Enjoy!
 [11]: https://symfony.com/doc/3.2/logging.html
 [12]: https://symfony.com/doc/3.2/assetic/asset_management.html
 [13]: https://symfony.com/doc/current/bundles/SensioGeneratorBundle/index.html
+[14]: http://symfony.com/doc/current/bundles/FOSUserBundle/index.html
+[15]: http://symfony.com/doc/current/bundles/DoctrineMigrationsBundle/index.html
+[16]: https://symfony.com/doc/current/bundles/SonataAdminBundle/index.html
+[17]: https://github.com/KnpLabs/KnpPaginatorBundle

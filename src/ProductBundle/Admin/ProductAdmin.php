@@ -25,7 +25,7 @@ class ProductAdmin extends AbstractAdmin
      *
      * @param FormMapper $formMapper
      */
-    public function configureFormFields(FormMapper $formMapper)
+    protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
             ->add('name','text',['help' => 'Enter name product',])
@@ -72,7 +72,7 @@ class ProductAdmin extends AbstractAdmin
      * @param mixed $object
      * @return string
      */
-    public function toString($object)
+    protected function toString($object)
     {
         if($object instanceof Category){
             return $object->getName();
