@@ -12,6 +12,7 @@ use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 /**
  * Class ProductAdmin
@@ -26,9 +27,16 @@ class ProductAdmin extends AbstractAdmin
      */
     public function configureFormFields(FormMapper $formMapper)
     {
-        $formMapper->add('name','text',['help' => 'Enter name product',])
+        $formMapper
+            ->add('name','text',['help' => 'Enter name product',])
             ->add('price','text',['help' => 'Enter price product'])
-            ->add('description','textarea',['help' => 'Enter description product']);
+            ->add('description','textarea',['help' => 'Enter description product'])
+            ->add('category',EntityType::class,[
+                'class' => 'CategoryBundle:Category',
+                'choice_label' => 'name',
+                'expanded' => true,
+                'multiple' => true,
+            ]);
     }
 
     /**
