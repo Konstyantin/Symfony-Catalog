@@ -11,38 +11,48 @@ namespace ProductBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity
+ * Product
+ *
  * @ORM\Table(name="product")
+ * @ORM\Entity(repositoryClass="ProductBundle\Repository\ProductRepository")
  */
 class Product
 {
     /**
+     * @var integer
+     *
      * @ORM\Column(type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $id;
+    protected $id;
 
     /**
+     * @var string
+     *
      * @ORM\Column(type="string", length=100)
      */
-    private $name;
+    protected $name;
 
     /**
+     * @var double
+     *
      * @ORM\Column(type="decimal", scale=2)
      */
-    private $price;
+    protected $price;
 
     /**
+     * @var string
+     * 
      * @ORM\Column(type="text")
      */
-    private $description;
+    protected $description;
 
     /**
-     * @ORM\ManyToMany(targetEntity="CategoryBundle\Entity\Category", inversedBy="product")
+     * @ORM\ManyToMany(targetEntity="CategoryBundle\Entity\Category", inversedBy="product", cascade={"persist"})
      * @ORM\JoinTable(name="product_category")
      */
-    private $category;
+    protected $category;
 
     /**
      * Get id
