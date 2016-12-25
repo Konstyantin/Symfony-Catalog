@@ -18,13 +18,10 @@ class ProductRepository extends \Doctrine\ORM\EntityRepository
      */
     public function getOneProduct($id)
     {
-        $query = $this->createQueryBuilder('p')
-            ->where('p.id = :id')
-            ->setParameter('id',$id)
-            ->getQuery();
-
-        $product = $query->getResult();
-
+        $product = $this->getEntityManager()
+            ->getRepository('ProductBundle:Product')
+            ->findOneBy(['id' => $id]);
+        
         return $product;
     }
 

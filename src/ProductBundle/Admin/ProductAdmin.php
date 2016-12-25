@@ -60,8 +60,7 @@ class ProductAdmin extends AbstractAdmin
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper
-            ->addIdentifier('id')
-            ->add('name')
+            ->addIdentifier('name')
             ->add('price')
             ->add('description');
     }
