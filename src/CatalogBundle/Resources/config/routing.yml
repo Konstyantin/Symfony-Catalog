@@ -1,0 +1,7 @@
+catalog_homepage:
+    path:     /
+    defaults: { _controller: CatalogBundle:Catalog:index }
+
+catalog_view:
+    path:    /product/{name}
+    defaults: { _controller: CatalogBundle:Catalog:view }

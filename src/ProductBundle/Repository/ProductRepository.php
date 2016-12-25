@@ -16,12 +16,12 @@ class ProductRepository extends \Doctrine\ORM\EntityRepository
      * @param $id
      * @return array
      */
-    public function getOneProduct($id)
+    public function getOneProduct($name)
     {
         $product = $this->getEntityManager()
             ->getRepository('ProductBundle:Product')
-            ->findOneBy(['id' => $id]);
-        
+            ->findOneBy(['name' => $name]);
+
         return $product;
     }
 
