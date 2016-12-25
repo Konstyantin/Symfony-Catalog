@@ -10,5 +10,37 @@ namespace ProductBundle\Repository;
  */
 class ProductRepository extends \Doctrine\ORM\EntityRepository
 {
-    
+    /**
+     * Get one product by $id
+     *
+     * @param $id
+     * @return array
+     */
+    public function getOneProduct($id)
+    {
+        $query = $this->createQueryBuilder('p')
+            ->where('p.id = :id')
+            ->setParameter('id',$id)
+            ->getQuery();
+
+        $product = $query->getResult();
+
+        return $product;
+    }
+
+    /**
+     * Get all exists products
+     *
+     * @return array
+     */
+    public function getAllProduct()
+    {
+        $query = $this->createQueryBuilder('p')
+            ->orderBy('p.id','DESC')
+            ->getQuery();
+        
+        $products = $query->getResult();
+
+        return $products;
+    }
 }   
