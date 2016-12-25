@@ -1,0 +1,11 @@
+.content {
+    margin-top: 5%;
+}
+
+.product-item h2 a{
+    color: black;
+}
+
+.product-item h2 a:hover {
+    text-decoration: none;
+}

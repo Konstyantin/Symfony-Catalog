@@ -13,7 +13,7 @@ class ProductRepository extends \Doctrine\ORM\EntityRepository
     /**
      * Get one product by $id
      *
-     * @param $id
+     * @param $name
      * @return array
      */
     public function getOneProduct($name)
