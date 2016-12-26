@@ -51,6 +51,16 @@ class ProductRepositoryTest extends KernelTestCase
         $this->assertNotEmpty($products);
         $this->assertCount(3,$products);
     }
+    
+    public function testGetLastProduct()
+    {
+        $product = $this->em
+            ->getRepository('ProductBundle:Product')
+            ->getLastProduct(1);
+        
+        $this->assertNotEmpty($product);
+        $this->assertCount(1,$product);
+    }
 
     /**
      * {@inheritdoc}
