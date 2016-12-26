@@ -19,23 +19,8 @@ class CatalogController extends Controller
     {
         $em = $this->getDoctrine();
 
-        $products = $em->getRepository('ProductBundle:Product')->getAllProduct();
+        $products = $em->getRepository('ProductBundle:Product')->getLastProduct(6);
 
         return $this->render('CatalogBundle:Catalog:index.html.twig', ['products' => $products]);
-    }
-
-    /**
-     * View one product by $name
-     *
-     * @param $name
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
-    public function viewAction($name)
-    {
-        $em = $this->getDoctrine();
-        
-        $product = $em->getRepository('ProductBundle:Product')->getOneProduct($name);
-
-        return $this->render('CatalogBundle:Catalog:view.html.twig', ['product' => $product]);
     }
 }

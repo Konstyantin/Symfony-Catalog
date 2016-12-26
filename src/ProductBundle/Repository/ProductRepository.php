@@ -40,4 +40,16 @@ class ProductRepository extends \Doctrine\ORM\EntityRepository
 
         return $products;
     }
+
+    public function getLastProduct($count)
+    {
+        $query = $this->createQueryBuilder('p')
+            ->orderBy('p.id','DESC')
+            ->setMaxResults($count)
+            ->getQuery();
+        
+        $product = $query->getResult();
+        
+        return $product;
+    }
 }   

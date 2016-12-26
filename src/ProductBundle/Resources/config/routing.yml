@@ -1,3 +1,11 @@
 product_homepage:
-    path:     /
-    defaults: { _controller: ProductBundle:Default:index }
+    path:     /index
+    defaults: { _controller: ProductBundle:Product:index }
+
+product_view:
+    path:     /view/{name}
+    defaults: { _controller: ProductBundle:Product:view}
+
+product_list:
+    path:     /list
+    defaults: { _controller: ProductBundle:Product:list}

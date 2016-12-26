@@ -34,7 +34,7 @@ class ProductRepositoryTest extends KernelTestCase
     {
         $product = $this->em
             ->getRepository('ProductBundle:Product')
-            ->getOneProduct(1);
+            ->getOneProduct('Product');
 
         $this->assertEquals('Product',$product->getName());
         $this->assertEquals('2000.00',$product->getPrice());
@@ -49,7 +49,7 @@ class ProductRepositoryTest extends KernelTestCase
             ->getAllProduct();
         
         $this->assertNotEmpty($products);
-        $this->assertCount(4,$products);
+        $this->assertCount(3,$products);
     }
 
     /**
