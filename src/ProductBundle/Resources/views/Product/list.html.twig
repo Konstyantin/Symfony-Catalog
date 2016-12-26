@@ -7,13 +7,16 @@
                <li><a href="{{ path('product_category_list', {'category': category.name}) }}">{{ category.name }}</a></li>
            {% endfor %}
         </ul>
-        <ul>
+        <ul class="container clearfix">
             {% for product in products %}
-                <div class="col-lg-4 product-item">
+                <div class="col-sm-4 product-item">
                     <img src="{{ asset('assets/img/white-gift-box-1.jpg') }}" alt="">
                     <h2 class="text-center"><a href="/product/view/{{ product.name }}">{{ product.name }}</a></h2>
                 </div>
             {% endfor %}
         </ul>
+        <div class="navigation text-center">
+            {{ knp_pagination_render(products) }}
+        </div>
     </div>
 {% endblock %}

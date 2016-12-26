@@ -19,6 +19,10 @@ a:hover {
     text-decoration: none;
 }
 
+.product-item img {
+    width: 100%;
+}
+
 .categories-list li {
     display: inline-block;
     background: #12b715;
@@ -27,4 +31,8 @@ a:hover {
 
 .categories-list li a {
     color: #FFF;
+}
+
+.btn {
+    border-radius: 0;
 }
