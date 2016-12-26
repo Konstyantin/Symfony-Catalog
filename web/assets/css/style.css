@@ -1,11 +1,30 @@
+a {
+    color: #000;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: none;
+    color: #000;
+}
 .content {
     margin-top: 5%;
 }
 
 .product-item h2 a{
-    color: black;
+    color: #000;
 }
 
 .product-item h2 a:hover {
     text-decoration: none;
+}
+
+.categories-list li {
+    display: inline-block;
+    background: #12b715;
+    padding: 1%;
+}
+
+.categories-list li a {
+    color: #FFF;
 }

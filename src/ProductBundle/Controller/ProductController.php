@@ -4,6 +4,10 @@ namespace ProductBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
+/**
+ * Class ProductController
+ * @package ProductBundle\Controller
+ */
 class ProductController extends Controller
 {
     /**
@@ -25,8 +29,29 @@ class ProductController extends Controller
         $em = $this->getDoctrine();
         
         $products = $em->getRepository('ProductBundle:Product')->getAllProduct();
+
+        $categories = $em->getRepository('CategoryBundle:Category')->getAllCategory();
         
-        return $this->render('ProductBundle:Product:list.html.twig', ['products' => $products]);
+        return $this->render('ProductBundle:Product:list.html.twig', [
+            'products' => $products,
+            'categories' => $categories
+        ]);
+    }
+
+    /**
+     * Get product list by select category
+     * 
+     * @param $category
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function categoryAction($category)
+    {
+        $em = $this->getDoctrine();
+
+        $products = $em->getRepository('ProductBundle:Product')
+            ->getProductByCategory($category);
+        
+        return $this->render('ProductBundle:Product:category.html.twig', ['products' => $products]);
     }
 
     /**

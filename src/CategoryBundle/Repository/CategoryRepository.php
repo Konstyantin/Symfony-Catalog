@@ -31,14 +31,12 @@ class CategoryRepository extends \Doctrine\ORM\EntityRepository
      * @param $name
      * @return int
      */
-    public function getCategoryId($name)
+    public function getCategoryByName($name)
     {
         $product = $this->getEntityManager()
             ->getRepository('CategoryBundle:Category')
             ->findOneBy(['name' => $name]);
         
-        $product_id = $product->getId();
-
-        return $product_id;
+        return $product;
     }
 }

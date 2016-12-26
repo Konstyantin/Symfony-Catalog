@@ -2,17 +2,13 @@
 
 {% block body %}
     <div class="container">
-        <ul class="categories-list">
-           {% for category in categories %}
-               <li><a href="{{ path('product_category_list', {'category': category.name}) }}">{{ category.name }}</a></li>
-           {% endfor %}
-        </ul>
-        <ul>
+        <h2 class="text-center">Category Product</h2>
+        <ul class="product-list">
             {% for product in products %}
-                <div class="col-lg-4 product-item">
+                <li class="col-lg-4 product-item">
                     <img src="{{ asset('assets/img/white-gift-box-1.jpg') }}" alt="">
                     <h2 class="text-center"><a href="/product/view/{{ product.name }}">{{ product.name }}</a></h2>
-                </div>
+                </li>
             {% endfor %}
         </ul>
     </div>

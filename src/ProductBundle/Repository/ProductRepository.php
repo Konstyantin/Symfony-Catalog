@@ -41,6 +41,12 @@ class ProductRepository extends \Doctrine\ORM\EntityRepository
         return $products;
     }
 
+    /**
+     * Get the last $count elements
+     *
+     * @param $count
+     * @return array
+     */
     public function getLastProduct($count)
     {
         $query = $this->createQueryBuilder('p')
@@ -51,5 +57,21 @@ class ProductRepository extends \Doctrine\ORM\EntityRepository
         $product = $query->getResult();
         
         return $product;
+    }
+
+    /**
+     * Get products by select category
+     * 
+     * @param $category
+     * @return mixed
+     */
+    public function getProductByCategory($category)
+    {
+        $em = $this->getEntityManager();
+        
+        $category = $em->getRepository('CategoryBundle:Category')->getCategoryByName($category);
+        $products = $category->getProduct();
+        
+        return $products;
     }
 }   

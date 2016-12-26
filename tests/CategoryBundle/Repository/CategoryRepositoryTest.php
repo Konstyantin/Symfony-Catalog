@@ -39,13 +39,14 @@ class CategoryRepositoryTest extends KernelTestCase
         $this->assertCount(3, $category);
     }
     
-    public function testGetCategoryId()
+    public function testGetCategoryByName()
     {
         $category = $this->em
             ->getRepository('CategoryBundle:Category')
-            ->getCategoryId('category');
+            ->getCategoryByName('Category');
         
-        $this->assertEquals(3, $category);
+        $this->assertEquals('Category', $category->getName());
+        
         $this->assertNotEmpty($category);
     }
 
