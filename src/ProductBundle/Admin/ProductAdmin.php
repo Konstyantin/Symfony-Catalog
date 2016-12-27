@@ -60,8 +60,7 @@ class ProductAdmin extends AbstractAdmin
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper
-            ->addIdentifier('id')
-            ->add('name')
+            ->addIdentifier('name')
             ->add('price')
             ->add('description');
     }
@@ -72,7 +71,7 @@ class ProductAdmin extends AbstractAdmin
      * @param mixed $object
      * @return string
      */
-    protected function toString($object)
+    public function toString($object)
     {
         if($object instanceof Category){
             return $object->getName();

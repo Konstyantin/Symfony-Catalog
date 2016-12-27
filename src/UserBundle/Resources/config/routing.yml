@@ -1,3 +1,23 @@
 user_homepage:
     path:     /
     defaults: { _controller: UserBundle:Default:index }
+
+user_register:
+    path:     /register
+    defaults: { _controller: FOSUserBundle:Registration:register}
+
+user_login:
+    path:     /login
+    defaults: { _controller: FOSUserBundle:Security:login}
+
+user_profile_edit:
+    path:     /profile/edit
+    defaults: { _controller: FOSUserBundle:Profile:edit}
+
+user_change_password:
+    path:     /profile/change-password
+    defaults: { _controller: FOSUserBundle:ChangePassword:changePassword}
+
+user_profile:
+    path:     /user/profile
+    defaults: { _controller: FOSUserBundle:Profile:show}

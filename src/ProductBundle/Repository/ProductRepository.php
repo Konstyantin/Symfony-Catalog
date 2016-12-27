@@ -10,5 +10,68 @@ namespace ProductBundle\Repository;
  */
 class ProductRepository extends \Doctrine\ORM\EntityRepository
 {
-    
+    /**
+     * Get one product by $id
+     *
+     * @param $name
+     * @return array
+     */
+    public function getOneProduct($name)
+    {
+        $product = $this->getEntityManager()
+            ->getRepository('ProductBundle:Product')
+            ->findOneBy(['name' => $name]);
+
+        return $product;
+    }
+
+    /**
+     * Get all exists products
+     *
+     * @return array
+     */
+    public function getAllProduct()
+    {
+        $query = $this->createQueryBuilder('p')
+            ->orderBy('p.id','DESC')
+            ->getQuery();
+        
+        $products = $query->getResult();
+
+        return $products;
+    }
+
+    /**
+     * Get the last $count elements
+     *
+     * @param $count
+     * @return array
+     */
+    public function getLastProduct($count)
+    {
+        $query = $this->createQueryBuilder('p')
+            ->orderBy('p.id','DESC')
+            ->setMaxResults($count)
+            ->getQuery();
+        
+        $product = $query->getResult();
+        
+        return $product;
+    }
+
+    /**
+     * Get products by select category
+     * 
+     * @param $category
+     * @return mixed
+     */
+    public function getProductByCategory($category)
+    {
+        $em = $this->getEntityManager();
+        
+        $category = $em->getRepository('CategoryBundle:Category')->getCategoryByName($category);
+        $products = $category->getProduct();
+        
+        return $products;
+    }
 }   

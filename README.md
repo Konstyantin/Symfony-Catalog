@@ -75,17 +75,17 @@ It comes pre-configured with the following bundles:
   * **DebugBundle** (in dev/test env) - Adds Debug and VarDumper component
     integration
     
-  * [**FOSUserBundle**][14] (in dev/test env) - Provides a flexible framework for
+  * [**FOSUserBundle**][14] - Provides a flexible framework for
     user management that aims to handle common tasks such as user registration
     and password retrieval 
     
-  * [**DoctrineMigrationsBundle**][15] (in dev/test env) - Allow safely and
+  * [**DoctrineMigrationsBundle**][15] - Allow safely and
     quickly manage database migrations.
     
-  * [**Sonata Admin Bundle**][16] (in dev/test env) - The missing Symfony
+  * [**Sonata Admin Bundle**][16] - The missing Symfony
    Admin Generator
    
-  * [**KnpPaginatorBundle**][17] (in dev/test env) - Paginator to paginate everything 
+  * [**KnpPaginatorBundle**][17] - Paginator to paginate everything 
 
 All libraries and bundles included in the Symfony Standard Edition are
 released under the MIT or BSD license.

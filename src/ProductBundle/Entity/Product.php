@@ -9,11 +9,17 @@
 namespace ProductBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Product
  *
  * @ORM\Table(name="product")
+ * @UniqueEntity(
+ *     "name",
+ *     message="This product already exists"
+ * )
  * @ORM\Entity(repositoryClass="ProductBundle\Repository\ProductRepository")
  */
 class Product
@@ -30,13 +36,16 @@ class Product
     /**
      * @var string
      *
-     * @ORM\Column(type="string", length=100)
+     * @Assert\NotBlank()
+     * @Assert\Length(min="3", max="45")
+     * @ORM\Column(type="string", length=45)
      */
     protected $name;
 
     /**
      * @var double
-     *
+     * 
+     * @Assert\NotBlank()
      * @ORM\Column(type="decimal", scale=2)
      */
     protected $price;
@@ -44,6 +53,8 @@ class Product
     /**
      * @var string
      * 
+     * @Assert\NotBlank()
+     * @Assert\Length(max="2000")
      * @ORM\Column(type="text")
      */
     protected $description;

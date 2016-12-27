@@ -1,3 +1,0 @@
-category_homepage:
-    path:     /
-    defaults: { _controller: CategoryBundle:Default:index }

@@ -10,4 +10,33 @@ namespace CategoryBundle\Repository;
  */
 class CategoryRepository extends \Doctrine\ORM\EntityRepository
 {
+    /**
+     * Get all exists categories
+     * 
+     * @return array
+     */
+    public function getAllCategory()
+    {
+        $query = $this->createQueryBuilder('c')
+            ->getQuery();
+
+        $category = $query->getResult();
+
+        return $category;
+    }
+    
+    /**
+     * Get category id by set name
+     * 
+     * @param $name
+     * @return int
+     */
+    public function getCategoryByName($name)
+    {
+        $product = $this->getEntityManager()
+            ->getRepository('CategoryBundle:Category')
+            ->findOneBy(['name' => $name]);
+        
+        return $product;
+    }
 }

@@ -58,7 +58,7 @@ class CategoryAdmin extends AbstractAdmin
      * @param mixed $object
      * @return string
      */
-    protected function toString($object)
+    public function toString($object)
     {
         if($object instanceof Category){
             return $object->getName();

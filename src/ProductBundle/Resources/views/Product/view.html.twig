@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="container">
+        <div class="back_link">
+            <a class="btn btn-primary" href="{{ path('catalog_homepage') }}">Back</a>
+        </div>
+        <div class="col-lg-6">
+            <img src="{{ asset('assets/img/white-gift-box-1.jpg') }}" alt="">
+        </div>
+        <div class="col-lg-6">
+            <h2 class="text-center">{{ product.name }}</h2>
+            <p class="description">{{ product.description }}</p>
+            <p class="price">{{ product.price }}</p>
+        </div>
+    </div>
+{% endblock %}
