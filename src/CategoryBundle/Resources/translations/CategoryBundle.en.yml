@@ -1,0 +1,12 @@
+category:
+    label: 'Category'
+    group: 'Category'
+    admin:
+      label:
+        name: 'Category'
+    help:
+      name: 'Enter name category'
+    filters:
+       name: 'Name'
+    list:
+      name:  'Name'

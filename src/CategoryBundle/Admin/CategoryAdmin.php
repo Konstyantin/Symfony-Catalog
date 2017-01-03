@@ -20,6 +20,7 @@ use Sonata\AdminBundle\Form\FormMapper;
  */
 class CategoryAdmin extends AbstractAdmin
 {
+    protected $translationDomain = 'CategoryBundle';
     /**
      * Configure fields which are displayed on the edit and create actions
      *
@@ -28,7 +29,8 @@ class CategoryAdmin extends AbstractAdmin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper->add('name', 'text',[
-            'help' => 'Enter name category',
+            'help' => 'category.help.name',
+            'label' => 'category.admin.label.name'
         ]);
     }
 
@@ -39,7 +41,7 @@ class CategoryAdmin extends AbstractAdmin
      */
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
-        $datagridMapper->add('name');
+        $datagridMapper->add('name', null, ['label' => 'category.filters.name']);
     }
 
     /**
@@ -49,7 +51,7 @@ class CategoryAdmin extends AbstractAdmin
      */
     protected function configureListFields(ListMapper $listMapper)
     {
-        $listMapper->addIdentifier('name');
+        $listMapper->addIdentifier('name', null, ['label' => 'category.list.name']);
     }
 
     /**

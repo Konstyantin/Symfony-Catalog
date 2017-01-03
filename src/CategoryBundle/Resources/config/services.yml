@@ -1,7 +1,10 @@
 services:
-    # ...
-    admin.product:
-        class: ProductBundle\Admin\ProductAdmin
-        arguments: [~, ProductBundle\Entity\Product, ~]
+    admin.category:
+        class: CategoryBundle\Admin\CategoryAdmin
+        arguments: [~, CategoryBundle\Entity\Category, ~]
         tags:
-            - { name: sonata.admin, manager_type: orm, group: "Product", label: Product }
+            - name: sonata.admin
+              manager_type: orm
+              group: category.group
+              label: category.label
+              label_catalogue: CategoryBundle

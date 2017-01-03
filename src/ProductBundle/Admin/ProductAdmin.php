@@ -20,6 +20,7 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
  */
 class ProductAdmin extends AbstractAdmin
 {
+    protected $translationDomain = 'ProductBundle';
     /**
      * Configure fields which are displayed on the edit and create actions
      *
@@ -28,9 +29,18 @@ class ProductAdmin extends AbstractAdmin
     public function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->add('name','text',['help' => 'Enter name product',])
-            ->add('price','text',['help' => 'Enter price product'])
-            ->add('description','textarea',['help' => 'Enter description product'])
+            ->add('name','text',[
+                'help' => 'product.help.name',
+                'label' => 'product.admin.label.name'
+            ])
+            ->add('price','text',[
+                'help' => 'product.help.price',
+                'label' => 'product.admin.label.price'
+            ])
+            ->add('description','textarea',[
+                'help' => 'product.help.description',
+                'label' => 'product.admin.label.description'
+            ])
             ->add('category',EntityType::class,[
                 'class' => 'CategoryBundle:Category',
                 'choice_label' => 'name',
@@ -47,9 +57,9 @@ class ProductAdmin extends AbstractAdmin
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
         $datagridMapper
-            ->add('id')
-            ->add('name')
-            ->add('price');
+            ->add('id', null, ['label' => 'product.filters.id'])
+            ->add('name', null, ['label' => 'product.filters.name'])
+            ->add('price', null, ['label' => 'product.filters.price']);
     }
 
     /**
@@ -60,9 +70,9 @@ class ProductAdmin extends AbstractAdmin
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper
-            ->addIdentifier('name')
-            ->add('price')
-            ->add('description');
+            ->addIdentifier('name', null, ['label' => 'product.list.name'])
+            ->add('price', null, ['label' => 'product.list.price'])
+            ->add('description', null, ['label' => 'product.list.description']);
     }
 
     /**
