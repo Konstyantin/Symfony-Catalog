@@ -1,0 +1,21 @@
+product:
+    label: 'Preis'
+    group: 'Preis'
+    admin:
+      label:
+        name: 'Name'
+        price: 'Preis'
+        description: 'Beschreibung'
+        category: 'Kategorie'
+    help:
+        name: 'Geben Sie das Produkt ein'
+        price: 'Unternehmen'
+        description: 'Beschreibung eingeben'
+    filters:
+        id:    'Id'
+        name:  'Name'
+        price: 'Preis'
+    list:
+        name:  'Name'
+        price: 'Preis'
+        description: 'Beschreibung'

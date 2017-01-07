@@ -1,0 +1,12 @@
+category:
+    label: 'Catégorie'
+    group: 'Catégorie'
+    admin:
+      label:
+        name: 'Catégorie'
+    help:
+      name: 'Entrez une catégorie de nom'
+    filters:
+       name: 'Prénom'
+    list:
+      name:  'Prénom'
