@@ -2,16 +2,64 @@
 
 namespace CategoryBundle\Tests\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use Tests\AbstractControllerTest;
 
-class DefaultControllerTest extends WebTestCase
+class DefaultControllerTest extends AbstractControllerTest
 {
-    public function testIndex()
+    public function testAdminDashboard()
     {
-        $client = static::createClient();
+        $crawler = $this->client->request('GET', '/en/admin/dashboard');
+        $this->assertTrue($this->client->getResponse()->isSuccessful());
+        $this->assertGreaterThan(0, $crawler->filter('html:contains("Catalog")')->count());
+        $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
 
-        $crawler = $client->request('GET', '/category/');
+    }
 
-        $this->assertContains('Hello World', $client->getResponse()->getContent());
+    public function testCategoryList()
+    {
+        $crawler = $this->client->request('GET', '/en/admin/category/category/list');
+        $this->assertTrue($this->client->getResponse()->isSuccessful());
+        $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
+
+        $this->assertCount(1, $crawler->filter('section.sidebar'));
+
+        $this->assertGreaterThan(
+            1,
+            $crawler->filter('tr')->count()
+        );
+
+        $this->assertCount(1, $crawler->filter('html:contains("Phone")'));
+        $this->assertCount(1, $crawler->filter('html:contains("Notebook")'));
+    }
+
+    public function testCreate()
+    {
+        $crawler = $this->client->request('GET', '/en/admin/category/category/create');
+        $this->assertTrue($this->client->getResponse()->isSuccessful());
+        $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
+
+        $this->assertCount(1, $crawler->filter('section.sidebar'));
+
+        $this->assertGreaterThan(0, $crawler->filter('html:contains("Enter name category")')->count());
+        $this->assertGreaterThan(0, $crawler->filter('html:contains("Create")')->count());
+        $this->assertGreaterThan(0, $crawler->filter('html:contains("Create and return to list")')->count());
+        $this->assertGreaterThan(0, $crawler->filter('html:contains("Create and add another")')->count());
+
+        $this->assertCount(3, $crawler->filter('button.btn-success'));
+
+        $this->assertGreaterThan(1, $crawler->filter('input')->count());
+    }
+    
+    public function testUpdate()
+    {
+        $crawler = $this->client->request('GET', '/en/admin/category/category/1/edit');
+        $this->assertTrue($this->client->getResponse()->isSuccessful());
+        $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
+        $this->assertCount(1, $crawler->filter('section.sidebar'));
+
+        $this->assertCount(1, $crawler->filter('span:contains("Enter name category")'));
+        $this->assertCount(2, $crawler->filter('button:contains("Update")'));
+        $this->assertCount(1, $crawler->filter('button:contains("Update and close")'));
+        $this->assertCount(1, $crawler->filter('html:contains("Delete")'));
     }
 }

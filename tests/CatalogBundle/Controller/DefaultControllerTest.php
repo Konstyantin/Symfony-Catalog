@@ -10,8 +10,11 @@ class DefaultControllerTest extends WebTestCase
     {
         $client = static::createClient();
 
-        $crawler = $client->request('GET', '/');
+        $crawler = $client->request('GET', '/en/');
 
-        $this->assertContains('Product', $client->getResponse()->getContent());
+        $this->assertEquals(200, $client->getResponse()->getStatusCode());
+
+        $this->assertGreaterThan(0, $crawler->filter('h2.text-center')->count());
+        $this->assertGreaterThan(0, $crawler->filter('img')->count());
     }
 }
