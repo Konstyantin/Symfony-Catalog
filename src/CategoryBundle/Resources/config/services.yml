@@ -1,4 +1,7 @@
 services:
+    entity.category:
+              class: CategoryBundle\Entity\Category
+
     admin.category:
         class: CategoryBundle\Admin\CategoryAdmin
         arguments: [~, CategoryBundle\Entity\Category, ~]
@@ -8,3 +11,7 @@ services:
               group: category.group
               label: category.label
               label_catalogue: CategoryBundle
+
+    manage.category:
+        class: CategoryBundle\Services\ManageCategory
+        arguments: ['@entity.category', '@doctrine.orm.entity_manager']
