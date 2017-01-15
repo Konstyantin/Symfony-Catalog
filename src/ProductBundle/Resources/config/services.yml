@@ -1,4 +1,7 @@
 services:
+    entity.product:
+             class: ProductBundle\Entity\Product
+
     admin.product:
         class: ProductBundle\Admin\ProductAdmin
         arguments: [~, ProductBundle\Entity\Product, ~]
@@ -8,3 +11,7 @@ services:
               group: product.group
               label: product.label
               label_catalogue: ProductBundle
+
+    manage.product:
+        class: ProductBundle\Services\ManageProduct
+        arguments: ['@entity.product', '@doctrine.orm.entity_manager']
