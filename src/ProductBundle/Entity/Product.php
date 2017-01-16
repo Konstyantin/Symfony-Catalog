@@ -13,6 +13,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
+
 /**
  * Product
  *
@@ -26,6 +27,11 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  */
 class Product
 {
+    /**
+     * @var string
+     */
+    private $uploadPath = 'products';
+
     /**
      * @var integer
      *
@@ -257,5 +263,17 @@ class Product
     public function getImageName()
     {
         return $this->imageName;
+    }
+
+    /**
+     * Get path to uploaded images
+     * 
+     * @return string
+     */
+    public function getWebPath()
+    {
+        $webPath = 'uploads/images/' . $this->uploadPath . '/' . $this->imageName;
+
+        return $webPath;
     }
 }

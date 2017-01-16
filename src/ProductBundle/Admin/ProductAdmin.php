@@ -22,6 +22,7 @@ use Vich\UploaderBundle\Form\Type\VichImageType;
 class ProductAdmin extends AbstractAdmin
 {
     protected $translationDomain = 'ProductBundle';
+
     /**
      * Configure fields which are displayed on the edit and create actions
      *
@@ -45,6 +46,7 @@ class ProductAdmin extends AbstractAdmin
             ->add('imageFile', VichImageType::class, [
                 'required' => false,
                 'label' => 'product.admin.label.image.file',
+                'help' => '<img src="' . $this->fullPathImage() . '" class="admin-preview" alt="Picture don\'t exists"/>'
             ])
             ->add('category',EntityType::class,[
                 'class' => 'CategoryBundle:Category',
@@ -88,10 +90,29 @@ class ProductAdmin extends AbstractAdmin
      */
     public function toString($object)
     {
-        if($object instanceof Category){
+        if ($object instanceof Category) {
             return $object->getName();
         }
 
         return 'Product'; // shown in the breadcrumb on the create view
+    }
+
+    /**
+     * Formulate full path to upload images
+     *
+     * @return string
+     */
+    public function fullPathImage()
+    {
+        $image = $this->getSubject();
+
+        if ($image && ($webPath = $image->getWebPath())) {
+            $container = $this->getConfigurationPool()->getContainer();
+            $fullPath = $container->get('request_stack')->getCurrentRequest()->getBasePath() . '/' . $webPath;
+
+            return $fullPath;
+        }
+
+        return false;
     }
 }
