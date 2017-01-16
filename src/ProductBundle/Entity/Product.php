@@ -11,11 +11,13 @@ namespace ProductBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
-
+use Symfony\Component\HttpFoundation\File\File;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 /**
  * Product
  *
  * @ORM\Table(name="product")
+ * @Vich\Uploadable
  * @UniqueEntity(
  *     "name",
  *     message="This product already exists"
@@ -58,6 +60,31 @@ class Product
      * @ORM\Column(type="text")
      */
     protected $description;
+
+    /**
+     * @var File
+     *
+     * @Assert\Image(
+     *     mimeTypes="image/jpeg",
+     *     maxSize="300000",
+     * )
+     * @Vich\UploadableField(mapping="product_image", fileNameProperty="imageName")
+     */
+    protected $imageFile;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(type="string", length=255)
+     */
+    protected $imageName;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(type="datetime")
+     */
+    protected $updatedAt;
 
     /**
      * @ORM\ManyToMany(targetEntity="CategoryBundle\Entity\Category", inversedBy="product", cascade={"persist"})
@@ -186,5 +213,49 @@ class Product
     public function getCategory()
     {
         return $this->category;
+    }
+
+    /**
+     * @param File|\Symfony\Component\HttpFoundation\File\UploadedFile $image
+     *
+     * @return Product
+     */
+    public function setImageFile(File $image = null)
+    {
+        $this->imageFile = $image;
+
+        if ($image) {
+            $this->updatedAt = new \DateTimeImmutable();
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return File|null
+     */
+    public function getImageFile()
+    {
+        return $this->imageFile;
+    }
+
+    /**
+     * @param string $imageName
+     *
+     * @return Product
+     */
+    public function setImageName($imageName)
+    {
+        $this->imageName = $imageName;
+
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getImageName()
+    {
+        return $this->imageName;
     }
 }

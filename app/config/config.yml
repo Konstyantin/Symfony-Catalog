@@ -117,3 +117,16 @@ sonata_admin:
         # other configuration options
         search:              SonataAdminBundle:Core:search.html.twig
         search_result_block: SonataAdminBundle:Block:block_search_result.html.twig
+
+vich_uploader:
+    db_driver: orm
+
+    mappings:
+        product_image:
+            uri_prefix:         /uploads/images/products
+            upload_destination: '%kernel.root_dir%/../web/uploads/images/products'
+
+            inject_on_load:     false
+            delete_on_update:   true
+            delete_on_remove:   true
+            namer:              vich_uploader.namer_uniqid

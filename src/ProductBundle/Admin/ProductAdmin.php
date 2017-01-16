@@ -13,6 +13,7 @@ use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Vich\UploaderBundle\Form\Type\VichImageType;
 
 /**
  * Class ProductAdmin
@@ -40,6 +41,10 @@ class ProductAdmin extends AbstractAdmin
             ->add('description','textarea',[
                 'help' => 'product.help.description',
                 'label' => 'product.admin.label.description'
+            ])
+            ->add('imageFile', VichImageType::class, [
+                'required' => false,
+                'label' => 'product.admin.label.image.file',
             ])
             ->add('category',EntityType::class,[
                 'class' => 'CategoryBundle:Category',

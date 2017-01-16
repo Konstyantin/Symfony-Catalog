@@ -3,10 +3,11 @@ product:
     group: 'Product'
     admin:
       label:
-        name: 'name'
-        price: 'price'
-        description: 'description'
-        category: 'category'
+        name: 'Name'
+        price: 'Price'
+        description: 'Description'
+        category: 'Category'
+        image.file: 'Image'
     help:
         name: 'Enter name product'
         price: 'Enter price product'
