@@ -12,15 +12,6 @@ use Symfony\Component\HttpFoundation\Request;
 class ProductController extends Controller
 {
     /**
-     * Main product page
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
-    public function indexAction()
-    {
-        return $this->render('ProductBundle:Product:index.html.twig');
-    }
-
-    /**
      * Display all exists products
      * 
      * @return \Symfony\Component\HttpFoundation\Response

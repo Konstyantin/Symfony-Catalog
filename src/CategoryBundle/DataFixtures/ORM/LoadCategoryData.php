@@ -29,12 +29,8 @@ class LoadCategoryData extends AbstractFixture implements OrderedFixtureInterfac
     public function load(ObjectManager $manager)
     {
         $phone = new Category();
-        $phone->setName('phone');
+        $phone->setName('Category');
         $manager->persist($phone);
-        
-        $notebook = new Category();
-        $notebook->setName('notebook');
-        $manager->persist($notebook);
         
         $manager->flush();
     }

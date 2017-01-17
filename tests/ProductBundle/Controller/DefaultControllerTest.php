@@ -10,7 +10,7 @@ class DefaultControllerTest extends WebTestCase
     {
         $client = static::createClient();
 
-        $crawler = $client->request('GET', '/product/index');
+        $crawler = $client->request('GET', '/en/product/index');
 
         $this->assertContains('ProductController', $client->getResponse()->getContent());
     }
@@ -19,21 +19,21 @@ class DefaultControllerTest extends WebTestCase
     {
         $client = static::createClient();
 
-        $crawler = $client->request('GET', '/product/view/Product');
-        
+        $crawler = $client->request('GET', '/en/product/view/Galaxy S7');
+
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
 
         $this->assertCount(1, $crawler->filter('h2.text-center'));
         $this->assertCount(1, $crawler->filter('p.description'));
         $this->assertCount(1, $crawler->filter('p.price'));
         $this->assertCount(1, $crawler->filter('a.btn'));
-        
-        $this->assertContains('Product', $client->getResponse()->getContent());
-        $this->assertContains('Product description', $client->getResponse()->getContent());
+
+        $this->assertContains('Galaxy S7', $client->getResponse()->getContent());
+        $this->assertContains('Breaking boundaries and making bold steps', $client->getResponse()->getContent());
         $this->assertContains('2000.00', $client->getResponse()->getContent());
 
         $link = $crawler->filter('a.btn')->link();
-        
+
         $crawler = $client->click($link);
     }
 
@@ -41,8 +41,8 @@ class DefaultControllerTest extends WebTestCase
     {
         $client = static::createClient();
 
-        $crawler = $client->request('GET', '/product/list');
-        
+        $crawler = $client->request('GET', '/en/product/list');
+
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
 
         $this->assertGreaterThan(0, $crawler->filter('h2.text-center')->count());

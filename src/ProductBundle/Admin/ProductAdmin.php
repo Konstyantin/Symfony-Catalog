@@ -13,6 +13,7 @@ use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Vich\UploaderBundle\Form\Type\VichImageType;
 
 /**
  * Class ProductAdmin
@@ -20,6 +21,8 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
  */
 class ProductAdmin extends AbstractAdmin
 {
+    protected $translationDomain = 'ProductBundle';
+
     /**
      * Configure fields which are displayed on the edit and create actions
      *
@@ -28,9 +31,23 @@ class ProductAdmin extends AbstractAdmin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->add('name','text',['help' => 'Enter name product',])
-            ->add('price','text',['help' => 'Enter price product'])
-            ->add('description','textarea',['help' => 'Enter description product'])
+            ->add('name','text',[
+                'help' => 'product.help.name',
+                'label' => 'product.admin.label.name'
+            ])
+            ->add('price','text',[
+                'help' => 'product.help.price',
+                'label' => 'product.admin.label.price'
+            ])
+            ->add('description','textarea',[
+                'help' => 'product.help.description',
+                'label' => 'product.admin.label.description'
+            ])
+            ->add('imageFile', VichImageType::class, [
+                'required' => false,
+                'label' => 'product.admin.label.image.file',
+                'help' => '<img src="' . $this->fullPathImage() . '" class="admin-preview" alt="Picture don\'t exists"/>'
+            ])
             ->add('category',EntityType::class,[
                 'class' => 'CategoryBundle:Category',
                 'choice_label' => 'name',
@@ -47,9 +64,9 @@ class ProductAdmin extends AbstractAdmin
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
         $datagridMapper
-            ->add('id')
-            ->add('name')
-            ->add('price');
+            ->add('id', null, ['label' => 'product.filters.id'])
+            ->add('name', null, ['label' => 'product.filters.name'])
+            ->add('price', null, ['label' => 'product.filters.price']);
     }
 
     /**
@@ -60,9 +77,9 @@ class ProductAdmin extends AbstractAdmin
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper
-            ->addIdentifier('name')
-            ->add('price')
-            ->add('description');
+            ->addIdentifier('name', null, ['label' => 'product.list.name'])
+            ->add('price', null, ['label' => 'product.list.price'])
+            ->add('description', null, ['label' => 'product.list.description']);
     }
 
     /**
@@ -73,10 +90,29 @@ class ProductAdmin extends AbstractAdmin
      */
     public function toString($object)
     {
-        if($object instanceof Category){
+        if ($object instanceof Category) {
             return $object->getName();
         }
 
         return 'Product'; // shown in the breadcrumb on the create view
+    }
+
+    /**
+     * Formulate full path to upload images
+     *
+     * @return string
+     */
+    public function fullPathImage()
+    {
+        $image = $this->getSubject();
+
+        if ($image && ($webPath = $image->getWebPath())) {
+            $container = $this->getConfigurationPool()->getContainer();
+            $fullPath = $container->get('request_stack')->getCurrentRequest()->getBasePath() . '/' . $webPath;
+
+            return $fullPath;
+        }
+
+        return false;
     }
 }

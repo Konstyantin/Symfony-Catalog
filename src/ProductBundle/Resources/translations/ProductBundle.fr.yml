@@ -1,0 +1,21 @@
+product:
+    label: 'Produit'
+    group: 'Produit'
+    admin:
+      label:
+        name: 'Prénom'
+        price: 'Prix'
+        description: 'La description'
+        category: 'Catégorie'
+    help:
+        name: 'Entrez le nom du produit'
+        price: 'Entrez Prix produit'
+        description: 'Entrez la description produit'
+    filters:
+        id:    'Id'
+        name:  'Prénom'
+        price: 'Prix'
+    list:
+        name:  'Prénom'
+        price: 'Prix'
+        description: 'La description'

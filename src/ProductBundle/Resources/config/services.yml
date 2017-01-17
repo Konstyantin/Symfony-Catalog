@@ -1,6 +1,17 @@
 services:
-    admin.category:
-            class: CategoryBundle\Admin\CategoryAdmin
-            arguments: [~, CategoryBundle\Entity\Category, ~]
-            tags:
-                - { name: sonata.admin, manager_type: orm, group: "Category", label: Category }
+    entity.product:
+             class: ProductBundle\Entity\Product
+
+    admin.product:
+        class: ProductBundle\Admin\ProductAdmin
+        arguments: [~, ProductBundle\Entity\Product, ~]
+        tags:
+            - name: sonata.admin
+              manager_type: orm
+              group: product.group
+              label: product.label
+              label_catalogue: ProductBundle
+
+    manage.product:
+        class: ProductBundle\Services\ManageProduct
+        arguments: ['@entity.product', '@doctrine.orm.entity_manager']

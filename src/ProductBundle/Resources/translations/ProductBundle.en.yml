@@ -1,0 +1,22 @@
+product:
+    label: 'Product'
+    group: 'Product'
+    admin:
+      label:
+        name: 'Name'
+        price: 'Price'
+        description: 'Description'
+        category: 'Category'
+        image.file: 'Image'
+    help:
+        name: 'Enter name product'
+        price: 'Enter price product'
+        description: 'Enter description product'
+    filters:
+        id:    'Id'
+        name:  'Name'
+        price: 'Price'
+    list:
+        name:  'Name'
+        price: 'Price'
+        description: 'Description'

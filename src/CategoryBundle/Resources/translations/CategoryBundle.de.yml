@@ -1,0 +1,12 @@
+category:
+    label: 'Kategorie'
+    group: 'Kategorie'
+    admin:
+      label:
+        name: 'Kategorie'
+    help:
+      name: 'Geben Sie den Namenstyp ein'
+    filters:
+       name: 'Name'
+    list:
+      name:  'Name'

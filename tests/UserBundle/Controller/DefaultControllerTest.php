@@ -2,78 +2,107 @@
 
 namespace UserBundle\Tests\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use Tests\AbstractControllerTest;
 
-class DefaultControllerTest extends WebTestCase
+class DefaultControllerTest extends AbstractControllerTest
 {
-
-    private $client = null;
-
-    public function setUp()
+    public function testProfile()
     {
-        $this->client = self::createClient();
+        $crawler = $this->client->request('GET', '/en/profile/');
+
+        $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
+
+        $this->assertCount(1, $crawler->filter('div.alert-success'));
+        $this->assertContains('Username: kostya', $this->client->getResponse()->getContent());
+        $this->assertContains('Email: kostya_nagula@mail.ua', $this->client->getResponse()->getContent());
     }
 
-    public function testIndex()
+    public function testEdit()
     {
-        $client = static::createClient();
+        $crawler = $this->client->request('GET', '/en/profile/edit');
 
-        $crawler = $client->request('GET', '/user/');
+        $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
 
-        $this->assertEquals(200, $client->getResponse()->getStatusCode());
-        $this->assertContains('Hello World', $client->getResponse()->getContent());
+        $this->assertCount(1, $crawler->filter('h2:contains("Profile Edit")'));
+
+        $form = $crawler->selectButton('Update')->form([
+            "fos_user_profile_form[username]" => 'kostya',
+            "fos_user_profile_form[email]" => 'kostya_nagula@mail.ua',
+            "fos_user_profile_form[current_password]" => '123456789q',
+        ]);
+
+        $crawler = $this->client->submit($form);
+
+        $this->assertTrue($this->client->getResponse()->isRedirect('/en/profile/'));
+    }
+
+    public function testChanePassword()
+    {
+        $crawler = $this->client->request('GET', '/en/profile/change-password');
+
+        $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
+
+        $this->assertCount(1, $crawler->filter('h2:contains("Change password")'));
+
+        $form = $crawler->selectButton('Change password')->form([
+            "fos_user_change_password_form[current_password]" => '123456789q',
+            "fos_user_change_password_form[plainPassword][first]" => '123456789qs',
+            "fos_user_change_password_form[plainPassword][second]" => '123456789qs',
+        ]);
+
+        $crawler = $this->client->submit($form);
+
+        $this->assertTrue($this->client->getResponse()->isRedirect('/en/profile/'));
     }
 
     public function testLogin()
     {
-        $crawler = $this->client->request('GET', '/login');
-        $form = $crawler->selectButton('_submit')->form(array(
-            '_username'  => 'kostya',
-            '_password'  => '123456789q',
-        ));
-        $this->client->submit($form);
+        $crawler = $this->client->request('GET', '/en/login');
 
-        $this->assertTrue($this->client->getResponse()->isRedirect());
+        $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
 
-        $crawler = $this->client->followRedirect();
-    }
+        $this->assertCount(1, $crawler->filter('h2:contains("Login form")'));
 
-    public function testRegistration()
-    {
-//        $crawler = $this->client->request('GET', '/register/');
-//
-//        $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
-//        $this->assertEquals(1,$crawler->filter('html:contains("Registration form")')->count());
-//        $form = $crawler->selectButton('Register')->form([
-//            "fos_user_registration_form[username]" => 'alex',
-//            "fos_user_registration_form[email]" => 'alex@gmail.com',
-//            "fos_user_registration_form[plainPassword][first]" => 12345,
-//            "fos_user_registration_form[plainPassword][second]" => 12345,
-//        ]);
-//
-//        $crawler = $this->client->submit($form);
-//
-//        $this->assertEquals(302, $this->client->getResponse()->getStatusCode());
-//
-//        $crawler = $this->client->followRedirect();
-    }
+        $form = $crawler->selectButton('_submit')->form([
+            '_username' => 'kostya',
+            '_password' => '123456789qs'
+        ]);
 
+        $crawler = $this->client->submit($form);
 
-    public function testProfileEdit()
-    {
-        $crawler = $this->client->request('GET','/profile/edit');
-        $this->assertEquals(302, $this->client->getResponse()->getStatusCode());
-    }
+        $crawler = $this->client->request('GET', '/en/profile/');
 
-    public function testProfile()
-    {
-        $crawler = $this->client->request('GET','/profile/');
-        $this->assertEquals(302, $this->client->getResponse()->getStatusCode());
+        $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
     }
 
     public function testLogout()
     {
-        $crawler = $this->client->request('GET','/logout');
+        $crawler = $this->client->request('GET', '/en/logout');
+
         $this->assertEquals(302, $this->client->getResponse()->getStatusCode());
+
+        $crawler = $this->client->request('GET', '/en/profile/');
+
+        $this->assertEquals(302, $this->client->getResponse()->getStatusCode());
+    }
+
+    public function testRegister()
+    {
+        $crawler = $this->client->request('GET', '/en/register/');
+
+        $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
+
+        $form = $crawler->selectButton('Register')->form([
+            'fos_user_registration_form[username]' => 'testName',
+            'fos_user_registration_form[email]'    => 'testEmail@mail.com',
+            'fos_user_registration_form[plainPassword][first]' => 'testPass',
+            'fos_user_registration_form[plainPassword][second]' => 'testPass',
+        ]);
+        
+        $this->client->submit($form);
+
+        $crawler = $this->client->request('GET', '/en/profile/');
+
+        $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
     }
 }

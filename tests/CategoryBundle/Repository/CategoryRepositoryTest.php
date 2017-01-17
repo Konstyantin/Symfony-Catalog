@@ -9,6 +9,7 @@
 namespace Tests\ProductBundle\Repository;
 
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
+use CategoryBundle\Entity\Category;
 
 class CategoryRepositoryTest extends KernelTestCase
 {
@@ -36,17 +37,17 @@ class CategoryRepositoryTest extends KernelTestCase
             ->getAllCategory();
 
         $this->assertNotEmpty($category);
-        $this->assertCount(3, $category);
+        $this->assertCount(5, $category);
     }
-    
+
     public function testGetCategoryByName()
     {
         $category = $this->em
             ->getRepository('CategoryBundle:Category')
             ->getCategoryByName('Category');
-        
+
         $this->assertEquals('Category', $category->getName());
-        
+
         $this->assertNotEmpty($category);
     }
 
