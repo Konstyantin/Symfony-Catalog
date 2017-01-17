@@ -37,14 +37,14 @@ security:
 
             logout:
                 path: fos_user_security_logout
-                target: /
+                target:   /
             anonymous:    true
 
     access_control:
-        - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/en/admin/, role: ROLE_ADMIN }
+        - { path: "^/%locale%/login", role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: "^/%locale%/register", role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: "^/%locale/resetting", role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: "^/%locale%/admin/", role: ROLE_ADMIN }
 
             # activate different ways to authenticate
 

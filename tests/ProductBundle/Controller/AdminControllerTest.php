@@ -20,10 +20,7 @@ class AdminControllerTest extends AbstractControllerTest
 
         $this->assertCount(1, $crawler->filter('section.sidebar'));
 
-        $this->assertGreaterThan(
-            0,
-            $crawler->filter('tr')->count()
-        );
+        $this->assertGreaterThan(0, $crawler->filter('tr')->count());
 
         $this->assertGreaterThan(0, $crawler->filter('html:contains("Product")')->count());
     }
@@ -50,7 +47,7 @@ class AdminControllerTest extends AbstractControllerTest
 
     public function testUpdate()
     {
-        $crawler = $this->client->request('GET', '/en/admin/product/product/1/edit');
+        $crawler = $this->client->request('GET', '/en/admin/product/product/21/edit');
         $this->assertTrue($this->client->getResponse()->isSuccessful());
         $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
         $this->assertCount(1, $crawler->filter('section.sidebar'));
@@ -62,6 +59,8 @@ class AdminControllerTest extends AbstractControllerTest
         $this->assertCount(2, $crawler->filter('button:contains("Update")'));
         $this->assertCount(1, $crawler->filter('button:contains("Update and close")'));
         $this->assertCount(1, $crawler->filter('a:contains("Delete")'));
+
+        $this->assertCount(1, $crawler->filter('html:contains("Lumia 950")'));
 
         $this->assertCount(1, $crawler->filter('section.sidebar'));
     }

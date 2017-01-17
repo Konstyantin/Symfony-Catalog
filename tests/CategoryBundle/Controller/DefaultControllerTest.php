@@ -23,13 +23,12 @@ class DefaultControllerTest extends AbstractControllerTest
 
         $this->assertCount(1, $crawler->filter('section.sidebar'));
 
-        $this->assertGreaterThan(
-            1,
-            $crawler->filter('tr')->count()
-        );
+        $this->assertCount(6,$crawler->filter('tr'));
 
-        $this->assertCount(1, $crawler->filter('html:contains("Phone")'));
-        $this->assertCount(1, $crawler->filter('html:contains("Notebook")'));
+        $this->assertCount(1, $crawler->filter('a:contains("Samsung")'));
+        $this->assertCount(1, $crawler->filter('a:contains("Microsoft")'));
+        $this->assertCount(1, $crawler->filter('a:contains("Apple")'));
+        $this->assertCount(1, $crawler->filter('a:contains("Meizu")'));
     }
 
     public function testCreate()
@@ -52,7 +51,7 @@ class DefaultControllerTest extends AbstractControllerTest
     
     public function testUpdate()
     {
-        $crawler = $this->client->request('GET', '/en/admin/category/category/1/edit');
+        $crawler = $this->client->request('GET', '/en/admin/category/category/21/edit');
         $this->assertTrue($this->client->getResponse()->isSuccessful());
         $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
         $this->assertCount(1, $crawler->filter('section.sidebar'));
