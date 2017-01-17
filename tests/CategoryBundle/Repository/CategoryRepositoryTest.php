@@ -37,7 +37,7 @@ class CategoryRepositoryTest extends KernelTestCase
             ->getAllCategory();
 
         $this->assertNotEmpty($category);
-        $this->assertCount(3, $category);
+        $this->assertCount(5, $category);
     }
 
     public function testGetCategoryByName()

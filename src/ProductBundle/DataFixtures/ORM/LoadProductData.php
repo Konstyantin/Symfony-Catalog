@@ -30,7 +30,7 @@ class LoadProductData extends AbstractFixture implements OrderedFixtureInterface
     public function load(ObjectManager $manager)
     {
         $category = new Category();
-        $category->setName('Sumsung');
+        $category->setName('Samsung');
 
         $product = new Product();
         $product->setName('Galaxy S7');

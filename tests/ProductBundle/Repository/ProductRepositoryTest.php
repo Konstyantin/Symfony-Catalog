@@ -34,12 +34,10 @@ class ProductRepositoryTest extends KernelTestCase
     {
         $product = $this->em
             ->getRepository('ProductBundle:Product')
-            ->getOneProduct('Product');
+            ->getOneProduct('Iphone 7');
 
-        $this->assertEquals('Product',$product->getName());
+        $this->assertEquals('Iphone 7',$product->getName());
         $this->assertEquals('2000.00',$product->getPrice());
-        $this->assertEquals('Product description',$product->getDescription());
-        $this->assertEquals('1',$product->getId());
     }
     
     public function testGetAllProduct()
@@ -49,7 +47,7 @@ class ProductRepositoryTest extends KernelTestCase
             ->getAllProduct();
         
         $this->assertNotEmpty($products);
-        $this->assertCount(3,$products);
+        $this->assertCount(4,$products);
     }
     
     public function testGetLastProduct()

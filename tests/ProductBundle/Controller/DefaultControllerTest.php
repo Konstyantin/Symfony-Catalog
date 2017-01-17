@@ -19,7 +19,7 @@ class DefaultControllerTest extends WebTestCase
     {
         $client = static::createClient();
 
-        $crawler = $client->request('GET', '/en/product/view/Product');
+        $crawler = $client->request('GET', '/en/product/view/Galaxy S7');
 
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
 
@@ -28,8 +28,8 @@ class DefaultControllerTest extends WebTestCase
         $this->assertCount(1, $crawler->filter('p.price'));
         $this->assertCount(1, $crawler->filter('a.btn'));
 
-        $this->assertContains('Product', $client->getResponse()->getContent());
-        $this->assertContains('Product description', $client->getResponse()->getContent());
+        $this->assertContains('Galaxy S7', $client->getResponse()->getContent());
+        $this->assertContains('Breaking boundaries and making bold steps', $client->getResponse()->getContent());
         $this->assertContains('2000.00', $client->getResponse()->getContent());
 
         $link = $crawler->filter('a.btn')->link();

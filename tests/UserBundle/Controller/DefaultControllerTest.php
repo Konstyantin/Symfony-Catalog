@@ -28,7 +28,7 @@ class DefaultControllerTest extends AbstractControllerTest
         $form = $crawler->selectButton('Update')->form([
             "fos_user_profile_form[username]" => 'kostya',
             "fos_user_profile_form[email]" => 'kostya_nagula@mail.ua',
-            "fos_user_profile_form[current_password]" => '123456789qs',
+            "fos_user_profile_form[current_password]" => '123456789q',
         ]);
 
         $crawler = $this->client->submit($form);
