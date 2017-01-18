@@ -1,14 +1,33 @@
 Symfony-Catalog
 ===============
 
-Welcome to the Symfony Standard Edition - a fully-functional Symfony
-application that you can use as the skeleton for your new applications.
+Welcome to the Symfony-Catalog - a simple example catalog 
+that you can use as the skeleton for your new products catalog.
 
-For details on how to download and get started with Symfony, see the
-[Installation][1] chapter of the Symfony Documentation.
+Installation
+============
+Symfony-Catalog work with PHP 5.6 or later and MySQL 5.4 or later (please check requirements)
 
-Testing
-=======
+### From repository
+
+Get Symfony-Catalog source files from GitHub repository:
+```
+git clone https://github.com/Konstyantin/Symfony-Catalog.git %path%
+```
+
+Download `composer.phar` to the project folder:
+```
+cd %path%
+curl -s https://getcomposer.org/installer | php
+```
+
+Install composer dependencies with the following command:
+```
+php composer.phar install
+```
+
+Running test suite
+==================
 Tests are located in tests directory. By default test suites:
   
   * unit
@@ -18,7 +37,7 @@ Tests are located in tests directory. By default test suites:
 Tests can be executed by running
 
 ~~~~~~~~
-phpunit  
+./vendor/bin/phpunit
 ~~~~~~~~
 
 Loading Fixtures
@@ -86,9 +105,11 @@ It comes pre-configured with the following bundles:
    Admin Generator
    
   * [**KnpPaginatorBundle**][17] - Paginator to paginate everything 
-
-All libraries and bundles included in the Symfony Standard Edition are
-released under the MIT or BSD license.
+  
+  * [**JMSI18nRoutingBundle**][18] - i18n Routing Bundle for the Symfony Framework
+  
+  * [**VichUploaderBundle**][19] - is a Symfony bundle that attempts to 
+    ease file uploads that are attached to ORM entities
 
 [1]:  https://symfony.com/doc/3.2/setup.html
 [6]:  https://symfony.com/doc/current/bundles/SensioFrameworkExtraBundle/index.html
@@ -103,3 +124,5 @@ released under the MIT or BSD license.
 [15]: http://symfony.com/doc/current/bundles/DoctrineMigrationsBundle/index.html
 [16]: https://symfony.com/doc/current/bundles/SonataAdminBundle/index.html
 [17]: https://github.com/KnpLabs/KnpPaginatorBundle
+[18]: https://github.com/schmittjoh/JMSI18nRoutingBundle
+[19]: https://github.com/dustin10/VichUploaderBundle
