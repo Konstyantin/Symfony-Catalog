@@ -4,8 +4,10 @@ category:
     admin:
       label:
         name: 'Category'
+        parent.category: 'Parent category'
     help:
       name: 'Enter name category'
+      parent.category: 'Select parent category'
     filters:
        name: 'Name'
     list:

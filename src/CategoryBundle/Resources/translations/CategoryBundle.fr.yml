@@ -4,8 +4,10 @@ category:
     admin:
       label:
         name: 'Catégorie'
+        parent.category: 'Catégorie parentale'
     help:
       name: 'Entrez une catégorie de nom'
+      parent.category: 'Sélectionner parent category'
     filters:
        name: 'Prénom'
     list:
