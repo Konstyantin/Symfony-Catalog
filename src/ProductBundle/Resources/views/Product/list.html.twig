@@ -2,20 +2,24 @@
 
 {% import '@Category/macros/category-macros.html.twig' as macros %}
 
-{% block nav %}
-<ul class="dropdown-menu">
-    {% for category in categories %}
-        {% if category.parent == null %}
-            <li class="dropdown-submenu">
-                <a class="submenu" href="{{ path('product_category_list', {'category': category.name}) }}">{{ category.name }}</a>
-                {% if category.children|length > 0 %}
-                    {{ macros.category_macros(category.children) }}
+{% block category %}
+    <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Categories <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+            {% for category in categories %}
+                {% if category.parent == null %}
+                    <li class="dropdown-submenu">
+                        <a class="submenu" href="{{ path('product_category_list', {'category': category.name}) }}">{{ category.name }}</a>
+                        {% if category.children|length > 0 %}
+                            {{ macros.category_macros(category.children) }}
+                        {% endif %}
+                    </li>
                 {% endif %}
-            </li>
-        {% endif %}
-    {% endfor %}
-</ul>
+            {% endfor %}
+        </ul>
+    </li>
 {% endblock %}
+
 {% block body %}
     <div class="container">
         <ul class="container product-list clearfix">
