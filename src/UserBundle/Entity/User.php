@@ -24,8 +24,47 @@ class User extends BaseUser
      */
     protected $id;
 
+    /**
+     * @ORM\OneToMany(targetEntity="OrderBundle\Entity\Orders", mappedBy="user")
+     */
+    protected $order;
+
     public function __construct()
     {
         parent::__construct();
+    }
+
+    /**
+     * Add order
+     *
+     * @param \OrderBundle\Entity\Orders $order
+     *
+     * @return User
+     */
+    public function addOrder(\OrderBundle\Entity\Orders $order)
+    {
+        $this->order[] = $order;
+
+        return $this;
+    }
+
+    /**
+     * Remove order
+     *
+     * @param \OrderBundle\Entity\Orders $order
+     */
+    public function removeOrder(\OrderBundle\Entity\Orders $order)
+    {
+        $this->order->removeElement($order);
+    }
+
+    /**
+     * Get order
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getOrder()
+    {
+        return $this->order;
     }
 }

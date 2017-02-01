@@ -2,6 +2,7 @@
 
 namespace OrderBundle\Controller;
 
+use OrderBundle\Entity\Orders;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 class OrderController extends Controller
