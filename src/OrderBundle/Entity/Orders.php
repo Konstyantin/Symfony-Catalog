@@ -39,6 +39,13 @@ class Orders
      */
     protected $createdAt;
 
+    /**
+     * @var boolean
+     * 
+     * @ORM\Column(type="boolean")
+     */
+    protected $status;
+
 
     /**
      * Get id
@@ -103,6 +110,10 @@ class Orders
     public function __construct()
     {
         $this->quote = new \Doctrine\Common\Collections\ArrayCollection();
+        
+        $this->setCreatedAt(new \DateTime());
+        
+        $this->setStatus(true);
     }
 
     /**
@@ -137,5 +148,29 @@ class Orders
     public function getQuote()
     {
         return $this->quote;
+    }
+
+    /**
+     * Set status
+     *
+     * @param boolean $status
+     *
+     * @return Orders
+     */
+    public function setStatus($status)
+    {
+        $this->status = $status;
+
+        return $this;
+    }
+
+    /**
+     * Get status
+     *
+     * @return boolean
+     */
+    public function getStatus()
+    {
+        return $this->status;
     }
 }

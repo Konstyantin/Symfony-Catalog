@@ -10,4 +10,13 @@ namespace OrderBundle\Repository;
  */
 class QuoteRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function getQuoteProduct(){}
+    
+    public function getSumPriceProduct(){}
+    
+    public function productQuantity(){}
+    
+    public function addQuoteProduct(){}
+    
+    public function deleteQuoteProduct(){}
 }

@@ -10,4 +10,11 @@ namespace OrderBundle\Repository;
  */
 class OrdersRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function createUserOrder(){}
+    
+    public function deleteUserOrder(){}
+    
+    public function getUserOrders(){}
+    
+    public function getActiveUserOrder(){}
 }
