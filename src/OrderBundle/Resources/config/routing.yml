@@ -1,0 +1,3 @@
+order_homepage:
+    path:     /index
+    defaults: { _controller: OrderBundle:Order:index }
