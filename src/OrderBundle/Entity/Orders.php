@@ -28,6 +28,11 @@ class Orders
     protected $user;
 
     /**
+     * @ORM\OneToMany(targetEntity="OrderBundle\Entity\Quote", mappedBy="order")
+     */
+    protected $quote;
+
+    /**
      * @var \DateTime
      * 
      * @ORM\Column(type="datetime")
@@ -91,5 +96,46 @@ class Orders
     public function getCreatedAt()
     {
         return $this->createdAt;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->quote = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add quote
+     *
+     * @param \OrderBundle\Entity\Quote $quote
+     *
+     * @return Orders
+     */
+    public function addQuote(\OrderBundle\Entity\Quote $quote)
+    {
+        $this->quote[] = $quote;
+
+        return $this;
+    }
+
+    /**
+     * Remove quote
+     *
+     * @param \OrderBundle\Entity\Quote $quote
+     */
+    public function removeQuote(\OrderBundle\Entity\Quote $quote)
+    {
+        $this->quote->removeElement($quote);
+    }
+
+    /**
+     * Get quote
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getQuote()
+    {
+        return $this->quote;
     }
 }

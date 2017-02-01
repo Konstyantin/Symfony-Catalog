@@ -97,8 +97,12 @@ class Product
      * @ORM\JoinTable(name="product_category")
      */
     protected $category;
-    
 
+    /**
+     * @ORM\OneToMany(targetEntity="OrderBundle\Entity\Quote", mappedBy="product")
+     */
+    protected $quote;
+    
     /**
      * Get id
      *
@@ -300,5 +304,39 @@ class Product
     public function getUpdatedAt()
     {
         return $this->updatedAt;
+    }
+
+    /**
+     * Add quote
+     *
+     * @param \OrderBundle\Entity\Quote $quote
+     *
+     * @return Product
+     */
+    public function addQuote(\OrderBundle\Entity\Quote $quote)
+    {
+        $this->quote[] = $quote;
+
+        return $this;
+    }
+
+    /**
+     * Remove quote
+     *
+     * @param \OrderBundle\Entity\Quote $quote
+     */
+    public function removeQuote(\OrderBundle\Entity\Quote $quote)
+    {
+        $this->quote->removeElement($quote);
+    }
+
+    /**
+     * Get quote
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getQuote()
+    {
+        return $this->quote;
     }
 }

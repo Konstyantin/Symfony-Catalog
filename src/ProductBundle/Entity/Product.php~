@@ -99,10 +99,10 @@ class Product
     protected $category;
 
     /**
-     * @ORM\OneToMany(targetEntity="OrderBundle\Entity\Orders", mappedBy="product")
+     * @ORM\OneToMany(targetEntity="OrderBundle\Entity\Quote", mappedBy="product")
      */
-    protected $orders;
-
+    protected $quote;
+    
     /**
      * Get id
      *
@@ -280,5 +280,29 @@ class Product
         $webPath = 'uploads/images/' . $this->uploadPath . '/' . $this->imageName;
 
         return $webPath;
+    }
+
+    /**
+     * Set updatedAt
+     *
+     * @param \DateTime $updatedAt
+     *
+     * @return Product
+     */
+    public function setUpdatedAt($updatedAt)
+    {
+        $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    /**
+     * Get updatedAt
+     *
+     * @return \DateTime
+     */
+    public function getUpdatedAt()
+    {
+        return $this->updatedAt;
     }
 }

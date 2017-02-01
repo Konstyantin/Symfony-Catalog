@@ -28,6 +28,11 @@ class Orders
     protected $user;
 
     /**
+     * @ORM\OneToMany(targetEntity="OrderBundle\Entity\Quote", mappedBy="order")
+     */
+    protected $quote;
+
+    /**
      * @var \DateTime
      * 
      * @ORM\Column(type="datetime")
@@ -67,5 +72,29 @@ class Orders
     public function getUser()
     {
         return $this->user;
+    }
+
+    /**
+     * Set createdAt
+     *
+     * @param \DateTime $createdAt
+     *
+     * @return Orders
+     */
+    public function setCreatedAt($createdAt)
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    /**
+     * Get createdAt
+     *
+     * @return \DateTime
+     */
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
     }
 }
