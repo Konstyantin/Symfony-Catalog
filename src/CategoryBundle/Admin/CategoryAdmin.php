@@ -13,7 +13,7 @@ use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
-
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 /**
  * Class CategoryAdmin
  * @package CategoryBundle\Admin
@@ -28,10 +28,19 @@ class CategoryAdmin extends AbstractAdmin
      */
     protected function configureFormFields(FormMapper $formMapper)
     {
-        $formMapper->add('name', 'text',[
-            'help' => 'category.help.name',
-            'label' => 'category.admin.label.name'
-        ]);
+        $formMapper
+            ->add('parent', EntityType::class,[
+                'class' => 'CategoryBundle:Category',
+                'choice_label' => 'name',
+                'help' => 'category.help.parent.category',
+                'label' => 'category.admin.label.parent.category',
+                'multiple' => false,
+                'required' => false
+            ])
+            ->add('name', 'text',[
+                'help' => 'category.help.name',
+                'label' => 'category.admin.label.name'
+            ]);
     }
 
     /**

@@ -48,7 +48,7 @@ class ProductAdmin extends AbstractAdmin
                 'label' => 'product.admin.label.image.file',
                 'help' => '<img src="' . $this->fullPathImage() . '" class="admin-preview" alt="Picture don\'t exists"/>'
             ])
-            ->add('category',EntityType::class,[
+            ->add('category', EntityType::class,[
                 'class' => 'CategoryBundle:Category',
                 'choice_label' => 'name',
                 'expanded' => true,

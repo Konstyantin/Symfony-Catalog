@@ -97,6 +97,7 @@ class Product
      * @ORM\JoinTable(name="product_category")
      */
     protected $category;
+    
 
     /**
      * Get id
@@ -275,5 +276,29 @@ class Product
         $webPath = 'uploads/images/' . $this->uploadPath . '/' . $this->imageName;
 
         return $webPath;
+    }
+
+    /**
+     * Set updatedAt
+     *
+     * @param \DateTime $updatedAt
+     *
+     * @return Product
+     */
+    public function setUpdatedAt($updatedAt)
+    {
+        $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    /**
+     * Get updatedAt
+     *
+     * @return \DateTime
+     */
+    public function getUpdatedAt()
+    {
+        return $this->updatedAt;
     }
 }

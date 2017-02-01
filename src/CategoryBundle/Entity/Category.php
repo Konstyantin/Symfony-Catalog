@@ -35,11 +35,23 @@ class Category
      * @ORM\Column(name="name", type="string", length=45)
      */
     protected $name;
-
+    
     /**
      * @ORM\ManyToMany(targetEntity="ProductBundle\Entity\Product", mappedBy="category")
      */
     protected $product;
+
+    /**
+     * @ORM\OneToMany(targetEntity="CategoryBundle\Entity\Category", mappedBy="parent")
+     */
+    protected $children;
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="CategoryBundle\Entity\Category", inversedBy="children")
+     * @ORM\JoinColumn(name="parent_id", referencedColumnName="id")
+     */
+    protected $parent;
+
     /**
      * Get id
      *
@@ -73,6 +85,7 @@ class Category
     {
         return $this->name;
     }
+
     /**
      * Constructor
      */
@@ -113,5 +126,63 @@ class Category
     public function getProduct()
     {
         return $this->product;
+    }
+
+    /**
+     * Add child
+     *
+     * @param \CategoryBundle\Entity\Category $child
+     *
+     * @return Category
+     */
+    public function addChild(\CategoryBundle\Entity\Category $child)
+    {
+        $this->children[] = $child;
+
+        return $this;
+    }
+
+    /**
+     * Remove child
+     *
+     * @param \CategoryBundle\Entity\Category $child
+     */
+    public function removeChild(\CategoryBundle\Entity\Category $child)
+    {
+        $this->children->removeElement($child);
+    }
+
+    /**
+     * Get children
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getChildren()
+    {
+        return $this->children;
+    }
+
+    /**
+     * Set parent
+     *
+     * @param \CategoryBundle\Entity\Category $parent
+     *
+     * @return Category
+     */
+    public function setParent(\CategoryBundle\Entity\Category $parent = null)
+    {
+        $this->parent = $parent;
+
+        return $this;
+    }
+
+    /**
+     * Get parent
+     *
+     * @return \CategoryBundle\Entity\Category
+     */
+    public function getParent()
+    {
+        return $this->parent;
     }
 }

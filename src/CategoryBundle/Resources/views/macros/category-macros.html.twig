@@ -1,0 +1,13 @@
+<!--macros/category-macros.html-->
+{% macro category_macros(categories) %}
+    <ul class="dropdown-menu">
+        {% for category in categories %}
+            <li class="dropdown-submenu">
+                <a class="submenu" href="{{ path('product_category_list', {'category': category.name}) }}">{{ category.name }}</a>
+                {% if category.children|length > 0 %}
+                    {{ _self.category_macros(category.children) }}
+                {% endif %}
+            </li>
+        {% endfor %}
+    </ul>
+{% endmacro %}
