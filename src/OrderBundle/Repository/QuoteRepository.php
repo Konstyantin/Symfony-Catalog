@@ -2,6 +2,10 @@
 
 namespace OrderBundle\Repository;
 
+use OrderBundle\Entity\Orders;
+use OrderBundle\Entity\Quote;
+use ProductBundle\Entity\Product;
+
 /**
  * QuoteRepository
  *
@@ -10,13 +14,156 @@ namespace OrderBundle\Repository;
  */
 class QuoteRepository extends \Doctrine\ORM\EntityRepository
 {
-    public function getQuoteProduct(){}
+    /**
+     * Get product by quote
+     * 
+     * @param $id
+     * @return array
+     */
+    public function getQuoteProduct($id)
+    {
+        $repository = $this->getEntityManager()
+            ->getRepository('OrderBundle:Quote');
+
+        $query = $repository->createQueryBuilder('quote')
+            ->join('quote.product', 'product')
+            ->where('quote.order = :id')
+            ->setParameter('id', $id)
+            ->getQuery();
+
+        return $query->getResult();
+    }
+
+    /**
+     * Get price of products that contain ordering
+     *
+     * @param $orderId
+     * @return array
+     */
+    public function getSumPriceProduct($orderId)
+    {
+        $query = $this->getEntityManager()
+            ->getRepository('OrderBundle:Quote')
+            ->createQueryBuilder('quote')
+            ->join('quote.product', 'product')
+            ->where('quote.order = :id')
+            ->setParameter('id', $orderId)
+            ->select('SUM(product.price * quote.quantity)  as sumPrice')
+            ->getQuery();
+
+        return $query->getResult();
+    }
     
-    public function getSumPriceProduct(){}
-    
-    public function productQuantity(){}
-    
-    public function addQuoteProduct(){}
-    
-    public function deleteQuoteProduct(){}
+     /**
+     * Add new Quote
+     * 
+     * @param Product $product
+     * @param Orders $orders
+     * @return bool
+     */
+    public function addQuote(Product $product, Orders $orders)
+    {
+        if (!$this->existsQuote($product, $orders)) {
+            $quote = new Quote();
+            $em = $this->getEntityManager();
+
+            $quote->setProduct($product);
+            $quote->setOrder($orders);
+
+            $em->persist($quote);
+            $em->flush();   
+            
+            return true;
+        }
+        
+        $this->addQuantity($product, $orders);
+    }
+
+    /**
+     * Delete exists Quote
+     * 
+     * @param Product $product
+     * @param Orders $order
+     * @return Quote
+     */
+    public function deleteQuote(Product $product, Orders $order)
+    {
+        $em = $this->getEntityManager();
+        
+        $quoteProduct = $this->existsQuote($product,$order);
+
+        if ($quoteProduct && $quoteProduct->getQuantity() <= 1) {
+            $em->remove($quoteProduct);
+            $em->flush();
+        }
+
+        $this->removeQuantity($product, $order);
+    }
+
+    /**
+     * Check exist quote
+     * 
+     * @param $product
+     * @param $order
+     * @return Quote
+     */
+    public function existsQuote($product, $order)
+    {
+        $em = $this->getEntityManager();
+        
+        return $em->getRepository('OrderBundle:Quote')->findOneBy([
+            'product' => $product,
+            'order' => $order
+        ]);
+    }
+
+    /**
+     * Increment quantity value
+     * 
+     * @param $product
+     * @param $order
+     */
+    public function addQuantity($product, $order)
+    {
+        $quote = $this->existsQuote($product, $order);
+        
+        if ($quote) {
+            $this->changeQuantity($quote, $quote->getQuantity() + 1);
+        }
+    }
+
+    /**
+     * Decrement quantity value
+     * 
+     * @param $product
+     * @param $order
+     * @return bool
+     */
+    public function removeQuantity($product, $order)
+    {
+        $quote = $this->existsQuote($product, $order);
+
+        if ($quote) {
+            $this->changeQuantity($quote, $quote->getQuantity() - 1);
+        }
+
+        return false;
+    }
+
+    /**
+     * Change new value for quantity
+     *
+     * @param $quote
+     * @param $value
+     * @return mixed
+     */
+    public function changeQuantity($quote, $value)
+    {
+        $em = $this->getEntityManager();
+
+        $quote->setQuantity($value);
+
+        $em->persist($quote);
+        $em->flush();
+    }
 }
