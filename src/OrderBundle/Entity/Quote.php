@@ -121,4 +121,12 @@ class Quote
     {
         return $this->quantity;
     }
+
+    /**
+     * Quote constructor
+     */
+    public function __construct()
+    {
+        $this->setQuantity(1);
+    }
 }
