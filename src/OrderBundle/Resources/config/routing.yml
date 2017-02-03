@@ -9,3 +9,7 @@ buy_product:
 delete_product:
     path:     /delete/{id}
     defaults: { _controller: OrderBundle:Order:delete}
+
+confirm_order:
+    path:     /confirm
+    defaults: { _controller: OrderBundle:Order:confirm}

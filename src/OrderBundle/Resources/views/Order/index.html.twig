@@ -1,8 +1,12 @@
 {% extends 'base.html.twig' %}
 
+{% block title %}
+    Orders
+{% endblock %}
+
 {% block body %}
     <div class="container">
-        <h2 class="text-center">Order index</h2>
+        <h2>Order index</h2>
         <table class="table table-bordered">
             <thead>
             <tr>
@@ -22,9 +26,10 @@
                 </tr>
             {% endfor %}
                 <tr>
-                    <td>{{ sum }}</td>
+                    <td>{{ amount }}</td>
                 </tr>
             </tbody>
         </table>
+        <a class="btn btn-success" href="{{ path('confirm_order') }}">Confirm</a>
     </div>
 {% endblock %}

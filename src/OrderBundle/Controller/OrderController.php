@@ -29,7 +29,7 @@ class OrderController extends Controller
 
         return $this->render('@Order/Order/index.html.twig', [
             'products' => $orderProduct,
-            'sum' => $orderSum
+            'amount' => $orderSum
         ]);
     }
 
@@ -67,5 +67,13 @@ class OrderController extends Controller
         $this->get('quote.repository')->deleteQuote($id);
 
         return $this->redirectToRoute('order_homepage');
+    }
+
+    /**
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function confirmAction()
+    {
+        return $this->render('@Order/Order/confirm.html.twig');
     }
 }

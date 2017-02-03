@@ -109,7 +109,7 @@ class QuoteRepository extends \Doctrine\ORM\EntityRepository
     public function existsQuote($product, $order)
     {
         $em = $this->getEntityManager();
-        
+
         return $em->getRepository('OrderBundle:Quote')->findOneBy([
             'product' => $product,
             'order' => $order
@@ -146,8 +146,6 @@ class QuoteRepository extends \Doctrine\ORM\EntityRepository
         if ($quote) {
             $this->changeQuantity($quote, $quote->getQuantity() - 1);
         }
-
-        return false;
     }
 
     /**
