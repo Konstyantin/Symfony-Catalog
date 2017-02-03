@@ -1,3 +1,11 @@
 order_homepage:
     path:     /index
     defaults: { _controller: OrderBundle:Order:index }
+
+buy_product:
+    path:     /buy/{name}
+    defaults: { _controller: OrderBundle:Order:addProduct}
+
+delete_product:
+    path:     /delete/{id}
+    defaults: { _controller: OrderBundle:Order:delete}

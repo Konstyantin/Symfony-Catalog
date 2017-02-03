@@ -29,6 +29,7 @@ class QuoteRepository extends \Doctrine\ORM\EntityRepository
             ->join('quote.product', 'product')
             ->where('quote.order = :id')
             ->setParameter('id', $id)
+            ->select('quote.id, product.name, product.price, quote.quantity')
             ->getQuery();
 
         return $query->getResult();
@@ -51,7 +52,7 @@ class QuoteRepository extends \Doctrine\ORM\EntityRepository
             ->select('SUM(product.price * quote.quantity)  as sumPrice')
             ->getQuery();
 
-        return $query->getResult();
+        return $query->getSingleScalarResult();
     }
     
      /**
@@ -82,22 +83,20 @@ class QuoteRepository extends \Doctrine\ORM\EntityRepository
     /**
      * Delete exists Quote
      * 
-     * @param Product $product
-     * @param Orders $order
+     * @param $id
      * @return Quote
      */
-    public function deleteQuote(Product $product, Orders $order)
+    public function deleteQuote($id)
     {
         $em = $this->getEntityManager();
         
-        $quoteProduct = $this->existsQuote($product,$order);
-
+        $quoteProduct = $em->getRepository('OrderBundle:Quote')->find($id);
+        
         if ($quoteProduct && $quoteProduct->getQuantity() <= 1) {
             $em->remove($quoteProduct);
             $em->flush();
         }
-
-        $this->removeQuantity($product, $order);
+        $this->removeQuantity($id);
     }
 
     /**
@@ -134,14 +133,15 @@ class QuoteRepository extends \Doctrine\ORM\EntityRepository
 
     /**
      * Decrement quantity value
-     * 
-     * @param $product
-     * @param $order
+     *
+     * @param $id
      * @return bool
      */
-    public function removeQuantity($product, $order)
+    public function removeQuantity($id)
     {
-        $quote = $this->existsQuote($product, $order);
+        $quote = $this->getEntityManager()
+            ->getRepository('OrderBundle:Quote')
+            ->find($id);
 
         if ($quote) {
             $this->changeQuantity($quote, $quote->getQuantity() - 1);

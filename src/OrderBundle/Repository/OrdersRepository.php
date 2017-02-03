@@ -28,7 +28,6 @@ class OrdersRepository extends \Doctrine\ORM\EntityRepository
         return $this->createNewOrder($user);
     }
 
-
     /**
      * Delete order if the order belongs to User
      *
@@ -64,7 +63,7 @@ class OrdersRepository extends \Doctrine\ORM\EntityRepository
      * @param $user
      * @return \OrderBundle\Entity\Orders
      */
-    protected function getActiveUserOrder($user)
+    public function getActiveUserOrder($user)
     {
         return $this->getEntityManager()
             ->getRepository('OrderBundle:Orders')

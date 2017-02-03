@@ -1,5 +1,30 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h2 class="text-center">Order index</h2>
+    <div class="container">
+        <h2 class="text-center">Order index</h2>
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Change</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for product in products %}
+                <tr>
+                    <td>{{ product.name }}</td>
+                    <td>{{ product.price }}</td>
+                    <td>{{ product.quantity }}</td>
+                    <td><a class="btn btn-danger" href="{{ path('delete_product', {'id': product.id}) }}">Delete</a></td>
+                </tr>
+            {% endfor %}
+                <tr>
+                    <td>{{ sum }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 {% endblock %}
