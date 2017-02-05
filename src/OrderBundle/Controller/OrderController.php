@@ -2,7 +2,11 @@
 
 namespace OrderBundle\Controller;
 
+use CategoryBundle\Entity\Category;
+use OrderBundle\Form\OrderType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 /**
  * Class OrderController
@@ -74,6 +78,8 @@ class OrderController extends Controller
      */
     public function confirmAction()
     {
-        return $this->render('@Order/Order/confirm.html.twig');
+        $form = $this->createForm(OrderType::class);
+
+        return $this->render('@Order/Order/confirm.html.twig', ['form' => $form->createView()]);
     }
 }
