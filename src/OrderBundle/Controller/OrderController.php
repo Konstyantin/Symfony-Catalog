@@ -82,4 +82,9 @@ class OrderController extends Controller
 
         return $this->render('@Order/Order/confirm.html.twig', ['form' => $form->createView()]);
     }
+    
+    public function ordersAction()
+    {
+        return $this->render('@Order/Order/orders.html.twig');
+    }
 }

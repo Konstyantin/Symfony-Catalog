@@ -13,3 +13,7 @@ delete_product:
 confirm_order:
     path:     /confirm
     defaults: { _controller: OrderBundle:Order:confirm}
+
+orders:
+    path:     /orders
+    defaults: { _controller: OrderBundle:Order:orders}

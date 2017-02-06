@@ -40,9 +40,8 @@ class Orders
     protected $createdAt;
 
     /**
-     * @var boolean
-     * 
-     * @ORM\Column(type="boolean")
+     * @ORM\ManyToOne(targetEntity="OrderBundle\Entity\Status", inversedBy="order")
+     * @ORM\JoinColumn(name="status_id", referencedColumnName="id")
      */
     protected $status;
 
