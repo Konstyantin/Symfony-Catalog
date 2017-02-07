@@ -41,7 +41,7 @@ class Orders
 
     /**
      * @ORM\ManyToOne(targetEntity="OrderBundle\Entity\Status", inversedBy="order")
-     * @ORM\JoinColumn(name="status_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="status_id", referencedColumnName="id", onDelete="CASCADE")
      */
     protected $status;
 
@@ -103,6 +103,7 @@ class Orders
     {
         return $this->createdAt;
     }
+    
     /**
      * Constructor
      */
@@ -111,8 +112,6 @@ class Orders
         $this->quote = new \Doctrine\Common\Collections\ArrayCollection();
         
         $this->setCreatedAt(new \DateTime());
-        
-        $this->setStatus(true);
     }
 
     /**

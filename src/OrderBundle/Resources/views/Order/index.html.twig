@@ -7,29 +7,31 @@
 {% block body %}
     <div class="container">
         <h2>Order index</h2>
-        <table class="table table-bordered">
-            <thead>
-            <tr>
-                <th>Name</th>
-                <th>Price</th>
-                <th>Quantity</th>
-                <th>Change</th>
-            </tr>
-            </thead>
-            <tbody>
-            {% for product in products %}
+        {% if products %}
+            <table class="table table-bordered">
+                <thead>
                 <tr>
-                    <td>{{ product.name }}</td>
-                    <td>{{ product.price }}</td>
-                    <td>{{ product.quantity }}</td>
-                    <td><a class="btn btn-danger" href="{{ path('delete_product', {'id': product.id}) }}">Delete</a></td>
+                    <th>Name</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th>Change</th>
                 </tr>
-            {% endfor %}
+                </thead>
+                <tbody>
+                {% for product in products %}
+                    <tr>
+                        <td>{{ product.name }}</td>
+                        <td>{{ product.price }}</td>
+                        <td>{{ product.quantity }}</td>
+                        <td><a class="btn btn-danger" href="{{ path('delete_product', {'id': product.id}) }}">Delete</a></td>
+                    </tr>
+                {% endfor %}
                 <tr>
                     <td>{{ amount }}</td>
                 </tr>
-            </tbody>
-        </table>
-        <a class="btn btn-success" href="{{ path('confirm_order') }}">Confirm</a>
+                </tbody>
+            </table>
+            <a class="btn btn-success" href="{{ path('confirm_order', {'id': order.id}) }}">Confirm</a>
+        {% endif %}
     </div>
 {% endblock %}

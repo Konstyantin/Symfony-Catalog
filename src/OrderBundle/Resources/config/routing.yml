@@ -4,16 +4,12 @@ order_homepage:
 
 buy_product:
     path:     /buy/{name}
-    defaults: { _controller: OrderBundle:Order:addProduct}
+    defaults: { _controller: OrderBundle:Order:createQuote}
 
 delete_product:
     path:     /delete/{id}
-    defaults: { _controller: OrderBundle:Order:delete}
+    defaults: { _controller: OrderBundle:Order:deleteQuote}
 
 confirm_order:
-    path:     /confirm
+    path:     /confirm/{id}
     defaults: { _controller: OrderBundle:Order:confirm}
-
-orders:
-    path:     /orders
-    defaults: { _controller: OrderBundle:Order:orders}

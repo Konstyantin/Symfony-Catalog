@@ -1,6 +1,7 @@
 <?php
 
 namespace OrderBundle\Repository;
+use OrderBundle\Entity\Orders;
 
 /**
  * StatusRepository
@@ -10,5 +11,22 @@ namespace OrderBundle\Repository;
  */
 class StatusRepository extends \Doctrine\ORM\EntityRepository
 {
-    
+    /**
+     * Set status for select order
+     * 
+     * @param Orders $orders
+     * @param $status
+     */
+    public function setStatus(Orders $orders, $status)
+    {
+        $em = $this->getEntityManager();
+        
+        $status = $em->getRepository('OrderBundle:Status')
+            ->findOneBy(['label' => $status]);
+        
+        $orders->setStatus($status);
+        
+        $em->persist($orders);
+        $em->flush();
+    } 
 }

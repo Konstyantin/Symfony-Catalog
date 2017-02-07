@@ -86,6 +86,9 @@ class OrdersRepository extends \Doctrine\ORM\EntityRepository
         $order = new Orders();
         $order->setUser($user);
 
+        $status = $em->getRepository('OrderBundle:Status')
+            ->setStatus($order, 'active');
+
         $em->persist($order);
         $em->flush();
 
@@ -102,5 +105,12 @@ class OrdersRepository extends \Doctrine\ORM\EntityRepository
         $em = $this->getEntityManager();
         $em->remove($order);
         $em->flush();
+    }
+    
+    public function userOrderList(User $user)
+    {
+        return $this->getEntityManager()
+                    ->getRepository('OrderBundle:Orders')
+                    ->getUserOrders($user);
     }
 }

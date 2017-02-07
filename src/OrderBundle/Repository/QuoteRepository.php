@@ -106,7 +106,7 @@ class QuoteRepository extends \Doctrine\ORM\EntityRepository
      * @param $order
      * @return Quote
      */
-    public function existsQuote($product, $order)
+    protected function existsQuote($product, $order)
     {
         $em = $this->getEntityManager();
 
@@ -122,7 +122,7 @@ class QuoteRepository extends \Doctrine\ORM\EntityRepository
      * @param $product
      * @param $order
      */
-    public function addQuantity($product, $order)
+    protected function addQuantity($product, $order)
     {
         $quote = $this->existsQuote($product, $order);
         
@@ -137,7 +137,7 @@ class QuoteRepository extends \Doctrine\ORM\EntityRepository
      * @param $id
      * @return bool
      */
-    public function removeQuantity($id)
+    protected function removeQuantity($id)
     {
         $quote = $this->getEntityManager()
             ->getRepository('OrderBundle:Quote')

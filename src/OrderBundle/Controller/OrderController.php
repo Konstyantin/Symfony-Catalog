@@ -2,11 +2,10 @@
 
 namespace OrderBundle\Controller;
 
-use CategoryBundle\Entity\Category;
+use OrderBundle\Entity\Sales;
 use OrderBundle\Form\OrderType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Class OrderController
@@ -29,11 +28,12 @@ class OrderController extends Controller
 
         $orderProduct = $quoteRepository->getQuoteProduct($userOrder->getId());
 
-        $orderSum = $quoteRepository->getSumPriceProduct($userOrder->getId());
+        $orderAmount = $quoteRepository->getSumPriceProduct($userOrder->getId());
 
         return $this->render('@Order/Order/index.html.twig', [
             'products' => $orderProduct,
-            'amount' => $orderSum
+            'amount' => $orderAmount,
+            'order' => $userOrder
         ]);
     }
 
@@ -43,7 +43,7 @@ class OrderController extends Controller
      * @param $name
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
-    public function addProductAction($name)
+    public function createQuoteAction($name)
     {
         $user = $this->getUser();
 
@@ -66,7 +66,7 @@ class OrderController extends Controller
      * @param $id
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
-    public function deleteAction($id)
+    public function deleteQuoteAction($id)
     {
         $this->get('quote.repository')->deleteQuote($id);
 
@@ -74,17 +74,30 @@ class OrderController extends Controller
     }
 
     /**
+     * Confirm active order
+     *
+     * @param $id
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function confirmAction()
+    public function confirmAction(Request $request, $id)
     {
+        $em = $this->getDoctrine()->getManager();
+
         $form = $this->createForm(OrderType::class);
 
-        return $this->render('@Order/Order/confirm.html.twig', ['form' => $form->createView()]);
-    }
-    
-    public function ordersAction()
-    {
-        return $this->render('@Order/Order/orders.html.twig');
+        $form->handleRequest($request);
+
+        if ($form->isValid() && $form->isSubmitted()) {
+            $data = $form->getData();
+            $phone = $data->getPhone();
+            
+            $em->getRepository('OrderBundle:Sales')->createOrderSales($id, $phone);
+
+            return $this->redirectToRoute('catalog_homepage');
+        }
+
+        return $this->render('@Order/Order/confirm.html.twig', [
+            'form' => $form->createView()
+        ]);
     }
 }
