@@ -3,6 +3,7 @@
 namespace OrderBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Sales
@@ -23,7 +24,7 @@ class Sales
 
     /**
      * @var int
-     *
+     * @Assert\NotBlank()
      * @ORM\Column(name="phone", type="bigint")
      */
     protected $phone;

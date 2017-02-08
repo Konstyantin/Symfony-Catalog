@@ -3,7 +3,7 @@
 namespace OrderBundle\Controller;
 
 use OrderBundle\Entity\Sales;
-use OrderBundle\Form\OrderType;
+use OrderBundle\Form\SalesType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -83,7 +83,7 @@ class OrderController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $form = $this->createForm(OrderType::class);
+        $form = $this->createForm(SalesType::class);
 
         $form->handleRequest($request);
 
