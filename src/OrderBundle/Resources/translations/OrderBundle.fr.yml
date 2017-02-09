@@ -1,0 +1,26 @@
+order:
+  admin:
+    form:
+      field:
+        status: 'Statut'
+        order:  'CommandeId'
+        phone:  'Téléphone'
+        amount: 'Montant'
+
+    list:
+      label:
+        id: 'Id'
+        user: 'Utilisateur'
+        status: 'Statut'
+        order:  'Commande'
+        phone:  'Téléphone'
+        amount: 'Montant'
+
+    filter:
+        label:
+          id: 'Id'
+          user: 'Utilisateur'
+          status: 'Statut'
+          order:  'Commande'
+          phone:  'Téléphone'
+          amount: 'Montant'

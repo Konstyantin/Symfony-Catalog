@@ -21,6 +21,8 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
  */
 class OrderAdmin extends AbstractAdmin
 {
+    protected $translationDomain = 'OrderBundle';
+
     /**
      * Configure fields which are displayed on the edit and create actions
      *
@@ -32,6 +34,7 @@ class OrderAdmin extends AbstractAdmin
             ->add('status', EntityType::class, [
                 'class' => 'OrderBundle:Status',
                 'choice_label' => 'label',
+                'label' => 'order.admin.form.field.status'
             ]);
     }
 
@@ -43,9 +46,15 @@ class OrderAdmin extends AbstractAdmin
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
         $datagridMapper
-            ->add('id')
-            ->add('user')
-            ->add('status');
+            ->add('id', null, [
+                'label' => 'order.admin.filter.label.id'
+            ])
+            ->add('user', null, [
+                'label' => 'order.admin.filter.label.user'
+            ])
+            ->add('status', null, [
+                'label' => 'order.admin.filter.label.status'
+            ]);
     }
 
     /**
@@ -57,12 +66,16 @@ class OrderAdmin extends AbstractAdmin
     {
         $listMapper
             ->addIdentifier('id', null, [
-                'row_align' => 'left'
+                'row_align' => 'left',
+                'label' => 'order.admin.list.label.id'
             ])
-            ->addIdentifier('user')
+            ->addIdentifier('user', null, [
+                'label' => 'order.admin.list.label.user'
+            ])
             ->add('status', EntityType::class, [
                 'class' => 'OrderBundle:Status',
-                'header_style' => 'width: 50%'
+                'header_style' => 'width: 50%',
+                'label' => 'order.admin.list.label.status'
             ]);
     }
 
@@ -78,6 +91,6 @@ class OrderAdmin extends AbstractAdmin
             return $object->getStatus();
         }
 
-        return 'Product'; // shown in the breadcrumb on the create view
+        return 'Order'; // shown in the breadcrumb on the create view
     }
 }

@@ -1,0 +1,26 @@
+order:
+  admin:
+    form:
+      field:
+        status: 'Status'
+        order:  'AuftragId'
+        phone:  'Telefon'
+        amount: 'Menge'
+
+    list:
+      label:
+        id: 'Id'
+        user: 'Benutzer'
+        status: 'Status'
+        order:  'Auftrag'
+        phone:  'Telefon'
+        amount: 'Menge'
+
+    filter:
+        label:
+          id: 'Id'
+          user: 'Benutzer'
+          status: 'Status'
+          order:  'Auftrag'
+          phone:  'Telefon'
+          amount: 'Menge'

@@ -15,8 +15,35 @@ use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
+/**
+ * Class ConfirmOrderAdmin
+ * @package OrderBundle\Admin
+ */
 class ConfirmOrderAdmin extends AbstractAdmin
 {
+    protected $translationDomain = 'OrderBundle';
+
+    /**
+     * Configure fields which are displayed on the edit and create actions
+     *
+     * @param FormMapper $formMapper
+     */
+    protected function configureFormFields(FormMapper $formMapper)
+    {
+        $formMapper
+            ->add('order', EntityType::class, [
+                'class' => 'OrderBundle:Orders',
+                'choice_label' => 'id',
+                'label' => 'order.admin.form.field.order'
+            ])
+            ->add('phone', 'text', [
+                'label' => 'order.admin.form.field.phone'
+            ])
+            ->add('amount','text', [
+                'label' => 'order.admin.form.field.amount'
+            ]);
+    }
+
     /**
      * Configure the filters, used to filter and sort the list of models
      *
@@ -25,12 +52,18 @@ class ConfirmOrderAdmin extends AbstractAdmin
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
         $datagridMapper
-            ->add('id')
-            ->add('order', null, [
-                'label' => 'OrderId'
+            ->add('id', null, [
+                'label' => 'order.admin.filter.label.id'
             ])
-            ->add('phone')
-            ->add('amount');
+            ->add('order', null, [
+                'label' => 'order.admin.filter.label.order'
+            ])
+            ->add('phone', null, [
+                'label' => 'order.admin.filter.label.phone'
+            ])
+            ->add('amount', null, [
+                'label' => 'order.admin.filter.label.amount'
+            ]);
     }
 
     /**
@@ -43,18 +76,20 @@ class ConfirmOrderAdmin extends AbstractAdmin
         $listMapper
             ->addIdentifier('order', EntityType::class, [
                 'class' => 'OrderBundle:Status',
-                'label' => 'OrderId'
+                'label' => 'order.admin.list.label.order'
             ])
             ->add('phone', null, [
                 'row_align' => 'left',
+                'label' => 'order.admin.list.label.phone'
             ])
             ->add('amount', null, [
-                'row_align' => 'left'
+                'row_align' => 'left',
+                'label' => 'order.admin.list.label.amount'
             ])
             ->add('_action', null, [
                 'actions' => [
                     'delete' => []
-                ]
+                ],
             ]);
     }
 
@@ -70,6 +105,6 @@ class ConfirmOrderAdmin extends AbstractAdmin
             return $object->getOrder();
         }
 
-        return 'Product'; // shown in the breadcrumb on the create view
+        return 'Confirm';
     }
 }

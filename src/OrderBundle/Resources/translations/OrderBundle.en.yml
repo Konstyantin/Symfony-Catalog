@@ -1,0 +1,28 @@
+order:
+  admin:
+    form:
+      field:
+        status: 'Status'
+        order:  'OrderId'
+        phone:  'Phone'
+        amount: 'Amount'
+      flash_message:
+        order:  'Order'
+
+    list:
+      label:
+        id: 'Id'
+        user: 'User'
+        status: 'Status'
+        order:  'Order'
+        phone:  'Phone'
+        amount: 'Amount'
+
+    filter:
+        label:
+          id: 'Id'
+          user: 'User'
+          status: 'Status'
+          order:  'Order'
+          phone:  'Phone'
+          amount: 'Amount'
