@@ -25,6 +25,12 @@ class Sales
     /**
      * @var int
      * @Assert\NotBlank()
+     * @Assert\Length(
+     *      min="10",
+     *      max="12",
+     *      minMessage="phone length is short",
+     *      maxMessage="phone length is long"
+     * )
      * @ORM\Column(name="phone", type="bigint")
      */
     protected $phone;

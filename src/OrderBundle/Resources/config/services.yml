@@ -17,3 +17,9 @@ services:
     quote.repository:
           class: OrderBundle\Repository\QuoteRepository
           arguments: ['@doctrine.orm.entity_manager', '@class.metadata']
+
+    order.flash_listener:
+          class: OrderBundle\EventListener\FlashListener
+          arguments: ['@session']
+          tags:
+              - { name: kernel.event_subscriber }

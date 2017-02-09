@@ -2,7 +2,9 @@
 
 namespace OrderBundle\Controller;
 
-use OrderBundle\Entity\Sales;
+use OrderBundle\Event\QuoteEvent;
+use OrderBundle\Event\SalesEvent;
+use OrderBundle\EventListener\OrderBundleEvents;
 use OrderBundle\Form\SalesType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -38,7 +40,7 @@ class OrderController extends Controller
     }
 
     /**
-     * Add a product to order
+     * Create new Quote product for active User order
      *
      * @param $name
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
@@ -50,13 +52,20 @@ class OrderController extends Controller
         $product = $this->getDoctrine()
             ->getRepository('ProductBundle:Product')
             ->getOneProduct($name);
-        
+
         $order = $this->get('order.repository')->createUserOrder($user);
 
         if ($product) {
+
             $this->get('quote.repository')->addQuote($product, $order);
+
+            $dispatcher = $this->get('event_dispatcher');
+
+            $event = new QuoteEvent($product);
+
+            $dispatcher->dispatch(OrderBundleEvents::QUOTE_CREATED, $event);
         }
-        
+
         return $this->redirectToRoute('order_homepage');
     }
 
@@ -69,6 +78,10 @@ class OrderController extends Controller
     public function deleteQuoteAction($id)
     {
         $this->get('quote.repository')->deleteQuote($id);
+
+        $dispatcher = $this->get('event_dispatcher');
+
+        $dispatcher->dispatch(OrderBundleEvents::QUOTE_DELETE);
 
         return $this->redirectToRoute('order_homepage');
     }
@@ -87,11 +100,19 @@ class OrderController extends Controller
 
         $form->handleRequest($request);
 
-        if ($form->isValid() && $form->isSubmitted()) {
+        if ($form->isSubmitted() && $form->isValid()) {
+
             $data = $form->getData();
+
             $phone = $data->getPhone();
-            
-            $em->getRepository('OrderBundle:Sales')->createOrderSales($id, $phone);
+
+            $sales = $em->getRepository('OrderBundle:Sales')->createOrderSales($id, $phone);
+
+            $dispatcher = $this->get('event_dispatcher');
+
+            $event = new SalesEvent($sales);
+
+            $dispatcher->dispatch(OrderBundleEvents::CONFIRM_ORDER, $event);
 
             return $this->redirectToRoute('catalog_homepage');
         }
