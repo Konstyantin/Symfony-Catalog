@@ -107,4 +107,12 @@ class Status
     {
         return $this->order;
     }
+
+    /**
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->getLabel();
+    }
 }

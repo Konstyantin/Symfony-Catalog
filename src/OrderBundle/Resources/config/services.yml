@@ -23,3 +23,13 @@ services:
           arguments: ['@session']
           tags:
               - { name: kernel.event_subscriber }
+
+    admin.order:
+        class: OrderBundle\Admin\OrderAdmin
+        arguments: [~, OrderBundle\Entity\Orders, ~]
+        tags:
+            - name: sonata.admin
+              manager_type: orm
+              group: Orders
+              label: Order
+              label_catalogue: OrderBundle
