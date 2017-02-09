@@ -3,38 +3,20 @@
  * Created by PhpStorm.
  * User: kostya
  * Date: 09.02.17
- * Time: 21:42
+ * Time: 22:40
  */
 
 namespace OrderBundle\Admin;
 
-use OrderBundle\Entity\Orders;
+use OrderBundle\Entity\Sales;
 use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
-/**
- * Class OrderAdmin
- * @package OrderBundle\Admin
- */
-class OrderAdmin extends AbstractAdmin
+class ConfirmOrderAdmin extends AbstractAdmin
 {
-    /**
-     * Configure fields which are displayed on the edit and create actions
-     *
-     * @param FormMapper $formMapper
-     */
-    protected function configureFormFields(FormMapper $formMapper)
-    {
-        $formMapper
-            ->add('status', EntityType::class, [
-                'class' => 'OrderBundle:Status',
-                'choice_label' => 'label',
-            ]);
-    }
-
     /**
      * Configure the filters, used to filter and sort the list of models
      *
@@ -44,8 +26,11 @@ class OrderAdmin extends AbstractAdmin
     {
         $datagridMapper
             ->add('id')
-            ->add('user')
-            ->add('status');
+            ->add('order', null, [
+                'label' => 'OrderId'
+            ])
+            ->add('phone')
+            ->add('amount');
     }
 
     /**
@@ -56,13 +41,20 @@ class OrderAdmin extends AbstractAdmin
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper
-            ->addIdentifier('id', null, [
+            ->addIdentifier('order', EntityType::class, [
+                'class' => 'OrderBundle:Status',
+                'label' => 'OrderId'
+            ])
+            ->add('phone', null, [
+                'row_align' => 'left',
+            ])
+            ->add('amount', null, [
                 'row_align' => 'left'
             ])
-            ->addIdentifier('user')
-            ->add('status', EntityType::class, [
-                'class' => 'OrderBundle:Status',
-                'header_style' => 'width: 50%'
+            ->add('_action', null, [
+                'actions' => [
+                    'delete' => []
+                ]
             ]);
     }
 
@@ -74,8 +66,8 @@ class OrderAdmin extends AbstractAdmin
      */
     public function toString($object)
     {
-        if ($object instanceof Orders) {
-            return $object->getStatus();
+        if ($object instanceof Sales) {
+            return $object->getOrder();
         }
 
         return 'Product'; // shown in the breadcrumb on the create view

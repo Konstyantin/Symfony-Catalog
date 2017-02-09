@@ -60,7 +60,21 @@ class CategoryAdmin extends AbstractAdmin
      */
     protected function configureListFields(ListMapper $listMapper)
     {
-        $listMapper->addIdentifier('name', null, ['label' => 'category.list.name']);
+        $listMapper
+            ->addIdentifier('id', null, [
+                'label' => 'id',
+                'row_align' => 'left',
+                'header_style' => 'width: 30%'
+            ])
+            ->addIdentifier('name', null, [
+                'label' => 'category.list.name',
+                'header_style' => 'width: 40%'
+            ])
+            ->add('_action',null, [
+                'actions' => [
+                    'delete' => []
+                ],
+            ]);
     }
 
     /**
