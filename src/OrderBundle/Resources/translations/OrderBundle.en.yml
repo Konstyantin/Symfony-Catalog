@@ -26,3 +26,12 @@ order:
           order:  'Order'
           phone:  'Phone'
           amount: 'Amount'
+  form:
+    field:
+      label:
+        phone:  'Phone'
+        submit: 'Submit'
+      placeholder:
+        phone:  380669936205
+
+  header: 'Confirm order'

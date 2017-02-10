@@ -5,7 +5,7 @@ namespace OrderBundle\Controller;
 use OrderBundle\Event\QuoteEvent;
 use OrderBundle\Event\SalesEvent;
 use OrderBundle\EventListener\OrderBundleEvents;
-use OrderBundle\Form\SalesType;
+use OrderBundle\Form\ConfirmType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -96,7 +96,7 @@ class OrderController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $form = $this->createForm(SalesType::class);
+        $form = $this->createForm(ConfirmType::class);
 
         $form->handleRequest($request);
 

@@ -24,3 +24,13 @@ order:
           order:  'Auftrag'
           phone:  'Telefon'
           amount: 'Menge'
+
+  form:
+    field:
+      label:
+        phone:  'Telefon'
+        submit: 'Einreichen'
+      placeholder:
+        phone:  380669936205
+
+  header: 'Bestellung bestätigen'

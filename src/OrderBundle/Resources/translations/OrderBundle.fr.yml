@@ -24,3 +24,14 @@ order:
           order:  'Commande'
           phone:  'Téléphone'
           amount: 'Montant'
+
+  form:
+    field:
+      label:
+        phone:  'Téléphone'
+        submit: 'Soumettre'
+      placeholder:
+        phone:  380669936205
+
+  header: 'Confirmer la commande'
+
