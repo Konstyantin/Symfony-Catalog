@@ -11,21 +11,6 @@ namespace ProductBundle\Repository;
 class ProductRepository extends \Doctrine\ORM\EntityRepository
 {
     /**
-     * Get one product by $id
-     *
-     * @param $name
-     * @return array
-     */
-    public function getOneProduct($name)
-    {
-        $product = $this->getEntityManager()
-            ->getRepository('ProductBundle:Product')
-            ->findOneBy(['name' => $name]);
-
-        return $product;
-    }
-
-    /**
      * Get all exists products
      *
      * @return array
@@ -36,9 +21,7 @@ class ProductRepository extends \Doctrine\ORM\EntityRepository
             ->orderBy('p.id','DESC')
             ->getQuery();
         
-        $products = $query->getResult();
-
-        return $products;
+        return $query->getResult();
     }
 
     /**
@@ -54,9 +37,7 @@ class ProductRepository extends \Doctrine\ORM\EntityRepository
             ->setMaxResults($count)
             ->getQuery();
         
-        $product = $query->getResult();
-        
-        return $product;
+        return $query->getResult();
     }
 
     /**
@@ -70,8 +51,7 @@ class ProductRepository extends \Doctrine\ORM\EntityRepository
         $em = $this->getEntityManager();
         
         $category = $em->getRepository('CategoryBundle:Category')->getCategoryByName($category);
-        $products = $category->getProduct();
-        
-        return $products;
+
+        return $category->getProduct();
     }
 }   

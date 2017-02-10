@@ -1,5 +1,5 @@
 product_view:
-    path:     /view/{name}
+    path:     /view/{id}
     defaults: { _controller: ProductBundle:Product:view}
 
 product_list:

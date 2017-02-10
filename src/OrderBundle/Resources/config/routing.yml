@@ -3,7 +3,7 @@ order_homepage:
     defaults: { _controller: OrderBundle:Order:index }
 
 buy_product:
-    path:     /buy/{name}
+    path:     /buy/{id}
     defaults: { _controller: OrderBundle:Order:createQuote}
 
 delete_product:

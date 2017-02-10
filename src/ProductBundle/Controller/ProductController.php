@@ -13,7 +13,8 @@ class ProductController extends Controller
 {
     /**
      * Display all exists products
-     * 
+     *
+     * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function listAction(Request $request)
@@ -58,14 +59,14 @@ class ProductController extends Controller
     /**
      * View one product by $name
      *
-     * @param $name
+     * @param $id
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function viewAction($name)
+    public function viewAction($id)
     {
         $em = $this->getDoctrine()->getManager();
 
-        $product = $em->getRepository('ProductBundle:Product')->getOneProduct($name);
+        $product = $em->getRepository('ProductBundle:Product')->find($id);
 
         return $this->render('ProductBundle:Product:view.html.twig', ['product' => $product]);
     }

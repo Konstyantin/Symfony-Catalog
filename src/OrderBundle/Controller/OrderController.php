@@ -42,16 +42,16 @@ class OrderController extends Controller
     /**
      * Create new Quote product for active User order
      *
-     * @param $name
+     * @param $id
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
-    public function createQuoteAction($name)
+    public function createQuoteAction($id)
     {
         $user = $this->getUser();
 
         $product = $this->getDoctrine()
             ->getRepository('ProductBundle:Product')
-            ->getOneProduct($name);
+            ->find($id);
 
         $order = $this->get('order.repository')->createUserOrder($user);
 
