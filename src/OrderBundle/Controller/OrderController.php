@@ -28,15 +28,20 @@ class OrderController extends Controller
 
         $userOrder = $this->get('order.repository')->getActiveUserOrder($user);
 
-        $orderProduct = $quoteRepository->getQuoteProduct($userOrder->getId());
+        if ($userOrder) {
 
-        $orderAmount = $quoteRepository->getSumPriceProduct($userOrder->getId());
+            $orderProduct = $quoteRepository->getQuoteProduct($userOrder->getId());
 
-        return $this->render('@Order/Order/index.html.twig', [
-            'products' => $orderProduct,
-            'amount' => $orderAmount,
-            'order' => $userOrder
-        ]);
+            $orderAmount = $quoteRepository->getSumPriceProduct($userOrder->getId());
+
+            return $this->render('@Order/Order/index.html.twig', [
+                'products' => $orderProduct,
+                'amount' => $orderAmount,
+                'order' => $userOrder
+            ]);
+        }
+
+        return $this->redirectToRoute('catalog_homepage');
     }
 
     /**

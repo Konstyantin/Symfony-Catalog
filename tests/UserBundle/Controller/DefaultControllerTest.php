@@ -53,6 +53,22 @@ class DefaultControllerTest extends AbstractControllerTest
         $crawler = $this->client->submit($form);
 
         $this->assertTrue($this->client->getResponse()->isRedirect('/en/profile/'));
+
+        $crawler = $this->client->request('GET', '/en/profile/change-password');
+
+        $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
+
+        $this->assertCount(1, $crawler->filter('h2:contains("Change password")'));
+
+        $form = $crawler->selectButton('Change password')->form([
+            "fos_user_change_password_form[current_password]" => '123456789qs',
+            "fos_user_change_password_form[plainPassword][first]" => '123456789q',
+            "fos_user_change_password_form[plainPassword][second]" => '123456789q',
+        ]);
+
+        $crawler = $this->client->submit($form);
+
+        $this->assertTrue($this->client->getResponse()->isRedirect('/en/profile/'));
     }
 
     public function testLogin()
@@ -65,7 +81,7 @@ class DefaultControllerTest extends AbstractControllerTest
 
         $form = $crawler->selectButton('_submit')->form([
             '_username' => 'kostya',
-            '_password' => '123456789qs'
+            '_password' => '123456789q'
         ]);
 
         $crawler = $this->client->submit($form);
@@ -98,7 +114,7 @@ class DefaultControllerTest extends AbstractControllerTest
             'fos_user_registration_form[plainPassword][first]' => 'testPass',
             'fos_user_registration_form[plainPassword][second]' => 'testPass',
         ]);
-        
+
         $this->client->submit($form);
 
         $crawler = $this->client->request('GET', '/en/profile/');

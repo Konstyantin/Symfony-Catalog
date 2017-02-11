@@ -45,7 +45,7 @@ security:
         - { path: "^/%locale%/register", role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: "^/%locale/resetting", role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: "^/%locale%/admin/", role: ROLE_ADMIN }
-        - { path: "^/%locale%/admin/", role: ROLE_USER }
+        - { path: "^/%locale%/order/", role: ROLE_USER }
 
             # activate different ways to authenticate
 

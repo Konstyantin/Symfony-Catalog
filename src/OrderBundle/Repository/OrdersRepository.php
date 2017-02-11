@@ -65,11 +65,15 @@ class OrdersRepository extends \Doctrine\ORM\EntityRepository
      */
     public function getActiveUserOrder($user)
     {
+        $status = $this->_em
+            ->getRepository('OrderBundle:Status')
+            ->getStatusId('active');
+
         return $this->getEntityManager()
             ->getRepository('OrderBundle:Orders')
             ->findOneBy([
                 'user' => $user,
-                'status' => 1
+                'status' => $status
             ]);
     }
 
@@ -106,7 +110,11 @@ class OrdersRepository extends \Doctrine\ORM\EntityRepository
         $em->remove($order);
         $em->flush();
     }
-    
+
+    /**
+     * @param User $user
+     * @return array|Orders[]
+     */
     public function userOrderList(User $user)
     {
         return $this->getEntityManager()

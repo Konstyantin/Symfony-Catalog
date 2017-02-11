@@ -28,5 +28,21 @@ class StatusRepository extends \Doctrine\ORM\EntityRepository
         
         $em->persist($orders);
         $em->flush();
-    } 
+    }
+
+    /**
+     * Get status id by label
+     *
+     * @param $label
+     * @return mixed
+     */
+    public function getStatusId($label)
+    {
+        return $this->createQueryBuilder('s')
+            ->select('s.id')
+            ->where('s.label = :label')
+            ->setParameter('label', $label)
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
 }
