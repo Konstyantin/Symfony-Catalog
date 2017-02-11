@@ -9,7 +9,6 @@
 namespace Tests\OrderBundle\Repository;
 
 use Doctrine\ORM\EntityManager;
-use OrderBundle\Entity\Quote;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use UserBundle\Entity\User;
 
@@ -64,7 +63,7 @@ class QuoteRepositoryTest extends KernelTestCase
 
         $this->assertNotEmpty($sum);
 
-        $this->assertEquals(8000, $sum);
+        $this->assertEquals(2000, $sum);
     }
 
     public function testAddQuote()
@@ -79,7 +78,7 @@ class QuoteRepositoryTest extends KernelTestCase
             'product' => $product
         ]);
 
-        $this->assertEquals(3, $quote->getQuantity());
+        $this->assertEquals(2, $quote->getQuantity());
     }
 
     public function testDeleteQuote()
@@ -94,26 +93,9 @@ class QuoteRepositoryTest extends KernelTestCase
             'product' => $product
         ]);
 
-        $this->assertEquals(2, $quote->getQuantity());
+        $this->assertEquals(1, $quote->getQuantity());
     }
 
-    public function testExistsQuote()
-    {
-        $product = $this->em->getRepository('ProductBundle:Product')->find(1);
-        $order = $this->em->getRepository('OrderBundle:Orders')->find(1);
-
-        $quote = $this->em->getRepository('OrderBundle:Quote')->findOneBy([
-            'order' => $order,
-            'product' => $product
-        ]);
-
-        $this->assertNotEmpty($quote);
-
-        $this->assertObjectHasAttribute('id', $quote);
-        $this->assertObjectHasAttribute('order', $quote);
-        $this->assertObjectHasAttribute('product', $quote);
-        $this->assertObjectHasAttribute('quantity', $quote);
-    }
 
     public function testChangeQuantity()
     {

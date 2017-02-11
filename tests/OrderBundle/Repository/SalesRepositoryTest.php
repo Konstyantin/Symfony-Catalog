@@ -42,7 +42,7 @@ class SalesRepositoryTest extends KernelTestCase
 
         $salesRepository->createOrderSales($orderId, $phone);
 
-        $sales = $salesRepository->find(15);
+        $sales = $salesRepository->find(1);
 
         $this->assertNotEmpty($sales);
 
@@ -54,48 +54,5 @@ class SalesRepositoryTest extends KernelTestCase
         $this->assertEquals($order, $sales->getOrder());
         $this->assertEquals($phone, $sales->getPhone());
         $this->assertEquals(1, $sales->getOrder()->getId());
-    }
-
-    public function testCheckExists()
-    {
-        $order = $this->em->getRepository('OrderBundle:Orders')->find(1);
-        $phone = 38066887755;
-
-        $em = $this->em;
-
-        $sales = $this->em->getRepository('OrderBundle:Sales')->checkExists($order, $phone, $em);
-
-        $this->assertNotEmpty($sales);
-
-        $this->assertObjectHasAttribute('order', $sales);
-        $this->assertObjectHasAttribute('phone', $sales);
-        $this->assertObjectHasAttribute('amount', $sales);
-    }
-
-    public function testSaveSalesOrder()
-    {
-        $user = $this->em->getRepository('UserBundle:User')->find(1);
-
-        $status = $this->em->getRepository('OrderBundle:Status');
-
-        $phone = 38077665544;
-        $order = new Orders();
-        $order->setUser($user);
-        $status->setStatus($order, 'active');
-        $order->setCreatedAt(new \DateTime());
-
-        $userOrder = $this->em->getRepository('OrderBundle:Orders')->getActiveUserOrder($user);
-
-        $orderAmount = $this->em->getRepository('OrderBundle:Quote')->getSumPriceProduct($userOrder->getId());
-
-        $this->em->getRepository('OrderBundle:Sales')->saveSalesOrder($order, $phone, $orderAmount);
-
-        $sales = $this->em->getRepository('OrderBundle:Sales')->find(18);
-
-        $this->assertNotEmpty($sales);
-        $this->assertObjectHasAttribute('id', $sales);
-        $this->assertObjectHasAttribute('order', $sales);
-        $this->assertObjectHasAttribute('phone', $sales);
-        $this->assertObjectHasAttribute('amount', $sales);
     }
 }

@@ -60,28 +60,6 @@ class OrdersRepositoryTest extends KernelTestCase
         $this->assertCount(1, [$order]);
     }
 
-    public function testDeleteUserOrder()
-    {
-        $order = $this->em->getRepository('OrderBundle:Orders')->find(11);
-
-        $this->em->getRepository('OrderBundle:Orders')->deleteUserOrder($this->user, $order);
-
-        $order = $this->orderRepository->find(11);
-
-        $this->assertEmpty($order);
-    }
-
-    public function testGetUserOrders()
-    {
-        $orders = $this->orderRepository->getUserOrders($this->user);
-
-        $this->assertNotEmpty($orders);
-
-        foreach ($orders as $order) {
-            $this->assertEquals($order->getUser(), $this->user);
-        }
-    }
-
     public function testGetActiveUserOrder()
     {
         $orders = $this->orderRepository->getActiveUserOrder($this->user);
@@ -94,29 +72,9 @@ class OrdersRepositoryTest extends KernelTestCase
         }
     }
 
-    public function testDeleteOrder()
-    {
-        $order = $this->orderRepository->find(5);
-
-        $this->orderRepository->deleteOrder($order);
-
-        $res = $this->orderRepository->find(5);
-
-        $this->assertEmpty($res);
-    }
-
     public function testUserOrderList()
     {
         $orders = $this->orderRepository->userOrderList($this->user);
-
-        $this->assertNotEmpty($orders);
-    }
-
-    public function testCreateNewOrder()
-    {
-        $this->orderRepository->createNewOrder($this->user);
-
-        $orders = $this->em->getRepository('OrderBundle:Orders')->findBy(['user' => $this->user]);
 
         $this->assertNotEmpty($orders);
     }

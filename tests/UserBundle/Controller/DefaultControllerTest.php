@@ -6,17 +6,6 @@ use Tests\AbstractControllerTest;
 
 class DefaultControllerTest extends AbstractControllerTest
 {
-    public function testProfile()
-    {
-        $crawler = $this->client->request('GET', '/en/profile/');
-
-        $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
-
-        $this->assertCount(1, $crawler->filter('div.alert-success'));
-        $this->assertContains('Username: kostya', $this->client->getResponse()->getContent());
-        $this->assertContains('Email: kostya_nagula@mail.ua', $this->client->getResponse()->getContent());
-    }
-
     public function testEdit()
     {
         $crawler = $this->client->request('GET', '/en/profile/edit');
@@ -34,6 +23,17 @@ class DefaultControllerTest extends AbstractControllerTest
         $crawler = $this->client->submit($form);
 
         $this->assertTrue($this->client->getResponse()->isRedirect('/en/profile/'));
+    }
+
+    public function testProfile()
+    {
+        $crawler = $this->client->request('GET', '/en/profile/');
+
+        $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
+
+        $this->assertCount(1, $crawler->filter('div.alert-success'));
+        $this->assertContains('Username: kostya', $this->client->getResponse()->getContent());
+        $this->assertContains('Email: kostya_nagula@mail.ua', $this->client->getResponse()->getContent());
     }
 
     public function testChanePassword()

@@ -29,13 +29,13 @@
                 {% for product in products %}
                     <tr>
                         <td>{{ product.name }}</td>
-                        <td>{{ product.price }}</td>
-                        <td>{{ product.quantity }}</td>
+                        <td class="price">{{ product.price }}</td>
+                        <td class="quantity">{{ product.quantity }}</td>
                         <td><a class="btn btn-danger" href="{{ path('delete_product', {'id': product.id}) }}">Delete</a></td>
                     </tr>
                 {% endfor %}
                 <tr>
-                    <td>{{ amount }}</td>
+                    <td class="amount">{{ amount }}</td>
                 </tr>
                 </tbody>
             </table>

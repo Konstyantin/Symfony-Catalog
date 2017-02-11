@@ -29,7 +29,7 @@ class SalesRepository extends \Doctrine\ORM\EntityRepository
         
         $orderAmount = $em->getRepository('OrderBundle:Quote')->getSumPriceProduct($order->getId());
         
-        if (!$this->checkExists($order, $phone,$em)) {
+        if (!$this->checkExists($order, $phone, $em)) {
             $this->saveSalesOrder($order, $phone,$orderAmount);
             $em->getRepository('OrderBundle:Status')->setStatus($order, 'confirm');
         }

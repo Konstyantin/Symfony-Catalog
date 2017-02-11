@@ -60,10 +60,6 @@ class StatusRepositoryTest extends KernelTestCase
 
         $order = $this->em->getRepository('OrderBundle:Orders')->find(1);
 
-        $status->setStatus($order, 'confirm');
-        $this->assertEquals($confirm, $order->getStatus());
-        $this->assertNotEquals($active, $order->getStatus());
-
         $status->setStatus($order, 'paid');
         $this->assertEquals($paid, $order->getStatus());
         $this->assertNotEquals($confirm, $order->getStatus());
@@ -71,5 +67,10 @@ class StatusRepositoryTest extends KernelTestCase
         $status->setStatus($order, 'active');
         $this->assertEquals($active, $order->getStatus());
         $this->assertNotEquals($paid, $order->getStatus());
+
+        $status->setStatus($order, 'confirm');
+        $this->assertEquals($confirm, $order->getStatus());
+        $this->assertNotEquals($active, $order->getStatus());
+
     }
 }

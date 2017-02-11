@@ -107,9 +107,7 @@ class OrderController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-            $data = $form->getData();
-
-            $phone = $data->getPhone();
+            $phone = $form->getData()->getPhone();
 
             $sales = $em->getRepository('OrderBundle:Sales')->createOrderSales($id, $phone);
 
