@@ -35,3 +35,8 @@ order:
         phone:  380669936205
 
   header: 'Confirm order'
+
+  service:
+    label:
+      order: 'Order'
+      confirm:  'Confirm'

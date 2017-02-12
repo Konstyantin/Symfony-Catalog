@@ -31,15 +31,15 @@ services:
             - name: sonata.admin
               manager_type: orm
               group: Orders
-              label: Order
-              label_catalogue: OrderBundle
+              label: order.service.label.order
 
-    admin.sales:
+
+    admin.confirm:
         class: OrderBundle\Admin\ConfirmOrderAdmin
         arguments: [~, OrderBundle\Entity\Sales, ~]
         tags:
             - name: sonata.admin
               manager_type: orm
               group: Orders
-              label: Confirm
-              label_catalogue: OrderBundle
+              label: order.service.label.confirm
+
