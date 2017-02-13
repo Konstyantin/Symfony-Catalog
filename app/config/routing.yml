@@ -26,3 +26,7 @@ product:
 catalog:
     resource: "@CatalogBundle/Resources/config/routing.yml"
     prefix:   /
+
+order:
+    resource: "@OrderBundle/Resources/config/routing.yml"
+    prefix:   /order

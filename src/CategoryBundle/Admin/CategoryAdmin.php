@@ -14,6 +14,7 @@ use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+
 /**
  * Class CategoryAdmin
  * @package CategoryBundle\Admin
@@ -21,6 +22,7 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 class CategoryAdmin extends AbstractAdmin
 {
     protected $translationDomain = 'CategoryBundle';
+
     /**
      * Configure fields which are displayed on the edit and create actions
      *
@@ -60,7 +62,21 @@ class CategoryAdmin extends AbstractAdmin
      */
     protected function configureListFields(ListMapper $listMapper)
     {
-        $listMapper->addIdentifier('name', null, ['label' => 'category.list.name']);
+        $listMapper
+            ->addIdentifier('id', null, [
+                'label' => 'id',
+                'row_align' => 'left',
+                'header_style' => 'width: 30%'
+            ])
+            ->addIdentifier('name', null, [
+                'label' => 'category.list.name',
+                'header_style' => 'width: 40%'
+            ])
+            ->add('_action',null, [
+                'actions' => [
+                    'delete' => []
+                ],
+            ]);
     }
 
     /**

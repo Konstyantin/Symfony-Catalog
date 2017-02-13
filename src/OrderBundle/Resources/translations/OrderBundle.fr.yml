@@ -1,0 +1,37 @@
+order:
+  admin:
+    form:
+      field:
+        status: 'Statut'
+        order:  'CommandeId'
+        phone:  'Téléphone'
+        amount: 'Montant'
+
+    list:
+      label:
+        id: 'Id'
+        user: 'Utilisateur'
+        status: 'Statut'
+        order:  'Commande'
+        phone:  'Téléphone'
+        amount: 'Montant'
+
+    filter:
+        label:
+          id: 'Id'
+          user: 'Utilisateur'
+          status: 'Statut'
+          order:  'Commande'
+          phone:  'Téléphone'
+          amount: 'Montant'
+
+  form:
+    field:
+      label:
+        phone:  'Téléphone'
+        submit: 'Soumettre'
+      placeholder:
+        phone:  380669936205
+
+  header: 'Confirmer la commande'
+

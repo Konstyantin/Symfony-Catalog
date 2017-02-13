@@ -37,7 +37,7 @@ Tests are located in tests directory. By default test suites:
 Tests can be executed by running
 
 ~~~~~~~~
-./vendor/bin/phpunit
+./vendor/bin/simple-phpunit
 ~~~~~~~~
 
 Loading Fixtures

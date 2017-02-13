@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    Orders
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+
+        {% for flash_message in app.session.flashBag.get('success') %}
+            <div class="alert alert-success fade in">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                {{ flash_message }}
+            </div>
+        {% endfor %}
+
+        <h2>Order index</h2>
+        {% if products %}
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th>Change</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for product in products %}
+                    <tr>
+                        <td>{{ product.name }}</td>
+                        <td class="price">{{ product.price }}</td>
+                        <td class="quantity">{{ product.quantity }}</td>
+                        <td><a class="btn btn-danger" href="{{ path('delete_product', {'id': product.id}) }}">Delete</a></td>
+                    </tr>
+                {% endfor %}
+                <tr>
+                    <td class="amount">{{ amount }}</td>
+                </tr>
+                </tbody>
+            </table>
+            <a class="btn btn-success" href="{{ path('confirm_order', {'id': order.id}) }}">Confirm</a>
+        {% endif %}
+    </div>
+{% endblock %}

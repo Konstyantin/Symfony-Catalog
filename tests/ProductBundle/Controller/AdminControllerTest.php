@@ -47,7 +47,7 @@ class AdminControllerTest extends AbstractControllerTest
 
     public function testUpdate()
     {
-        $crawler = $this->client->request('GET', '/en/admin/product/product/21/edit');
+        $crawler = $this->client->request('GET', '/en/admin/product/product/4/edit');
         $this->assertTrue($this->client->getResponse()->isSuccessful());
         $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
         $this->assertCount(1, $crawler->filter('section.sidebar'));

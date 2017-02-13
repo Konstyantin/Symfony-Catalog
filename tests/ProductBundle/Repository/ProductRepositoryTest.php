@@ -30,16 +30,6 @@ class ProductRepositoryTest extends KernelTestCase
             ->getManager();
     }
 
-    public function testGetOneProduct()
-    {
-        $product = $this->em
-            ->getRepository('ProductBundle:Product')
-            ->getOneProduct('Iphone 7');
-
-        $this->assertEquals('Iphone 7',$product->getName());
-        $this->assertEquals('2000.00',$product->getPrice());
-    }
-    
     public function testGetAllProduct()
     {
         $products = $this->em

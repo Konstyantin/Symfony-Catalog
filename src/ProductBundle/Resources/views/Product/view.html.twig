@@ -1,5 +1,7 @@
 {% extends 'base.html.twig' %}
 
+{% block title %}{{ product.name }}{% endblock %}
+
 {% block body %}
     <div class="container">
         <div class="back_link">
@@ -12,6 +14,7 @@
             <h2 class="text-center">{{ product.name }}</h2>
             <p class="description">{{ product.description }}</p>
             <p class="price">{{ product.price }}</p>
+            <a class="btn btn-success" href="{{ path('buy_product', {'id': product.id}) }}">Buy</a>
         </div>
     </div>
 {% endblock %}

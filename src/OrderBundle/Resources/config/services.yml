@@ -1,0 +1,45 @@
+services:
+    order.entity:
+        class: OrderBundle\Entity\Orders
+
+    quote.entity:
+        class: OrderBundle\Entity\Quote
+
+    class.metadata:
+          class: Doctrine\ORM\Mapping\ClassMetadata
+          autowire: true
+          arguments: ['@order.entity']
+
+    order.repository:
+          class: OrderBundle\Repository\OrdersRepository
+          arguments: ['@doctrine.orm.entity_manager', '@class.metadata']
+
+    quote.repository:
+          class: OrderBundle\Repository\QuoteRepository
+          arguments: ['@doctrine.orm.entity_manager', '@class.metadata']
+
+    order.flash_listener:
+          class: OrderBundle\EventListener\FlashListener
+          arguments: ['@session']
+          tags:
+              - { name: kernel.event_subscriber }
+
+    admin.order:
+        class: OrderBundle\Admin\OrderAdmin
+        arguments: [~, OrderBundle\Entity\Orders, ~]
+        tags:
+            - name: sonata.admin
+              manager_type: orm
+              group: Orders
+              label: order.service.label.order
+
+
+    admin.confirm:
+        class: OrderBundle\Admin\ConfirmOrderAdmin
+        arguments: [~, OrderBundle\Entity\Sales, ~]
+        tags:
+            - name: sonata.admin
+              manager_type: orm
+              group: Orders
+              label: order.service.label.confirm
+

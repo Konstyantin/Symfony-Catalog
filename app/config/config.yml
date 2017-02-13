@@ -6,6 +6,7 @@ imports:
     - { resource: "@CategoryBundle/Resources/config/services.yml" }
     - { resource: "@ProductBundle/Resources/config/services.yml" }
     - { resource: "@CatalogBundle/Resources/config/services.yml" }
+    - { resource: "@OrderBundle/Resources/config/services.yml" }
 
 # Put parameters here that don't need to change on each machine where the app is deployed
 # http://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
@@ -42,6 +43,8 @@ framework:
 twig:
     debug:            "%kernel.debug%"
     strict_variables: "%kernel.debug%"
+    form_themes:
+        - "bootstrap_3_layout.html.twig"
 
 # Doctrine Configuration
 doctrine:
@@ -73,11 +76,14 @@ swiftmailer:
     password:  "%mailer_password%"
     spool:     { type: memory }
 
-
+# FOSUser
 fos_user:
     db_driver: orm # other valid values are 'mongodb' and 'couchdb'
     firewall_name: main
     user_class: UserBundle\Entity\User
+    from_email:
+        address: "%mailer_user%"
+        sender_name: "%mailer_user%"
 
 doctrine_migrations:
     dir_name: "%kernel.root_dir%/DoctrineMigrations"
@@ -85,6 +91,14 @@ doctrine_migrations:
     table_name: migration_versions
     name: Application Migrations
 
+# Sonata Admin
+sonata_admin:
+    title: Catalog
+    templates:
+        search:              SonataAdminBundle:Core:search.html.twig
+        search_result_block: SonataAdminBundle:Block:block_search_result.html.twig
+
+# Sonata Block
 sonata_block:
     default_contexts: [cms]
     blocks:
@@ -92,10 +106,8 @@ sonata_block:
         sonata.admin.block.admin_list:
         sonata.admin.block.search_result:
             contexts: [admin]
-        # ...
-sonata_admin:
-    title: Catalog
 
+#Knp_Pagination
 knp_paginator:
     page_range:                 5          # default page range used in pagination control
     default_options:
@@ -106,18 +118,13 @@ knp_paginator:
     template:
         pagination: KnpPaginatorBundle:Pagination:twitter_bootstrap_v3_pagination.html.twig     # sliding pagination controls template
         sortable: KnpPaginatorBundle:Pagination:sortable_link.html.twig                         # sort link template
-
+# i18n
 jms_i18n_routing:
     default_locale: en
     locales: [en, de, fr]
     strategy: prefix
 
-sonata_admin:
-    templates:
-        # other configuration options
-        search:              SonataAdminBundle:Core:search.html.twig
-        search_result_block: SonataAdminBundle:Block:block_search_result.html.twig
-
+# Vich_uploader
 vich_uploader:
     db_driver: orm
 
