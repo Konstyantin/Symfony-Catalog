@@ -53,7 +53,10 @@ class ProductController extends Controller
         $products = $em->getRepository('ProductBundle:Product')
             ->getProductByCategory($category);
         
-        return $this->render('ProductBundle:Product:category.html.twig', ['products' => $products]);
+        return $this->render('ProductBundle:Product:category.html.twig', [
+            'category' => $category,
+            'products' => $products
+        ]);
     }
 
     /**

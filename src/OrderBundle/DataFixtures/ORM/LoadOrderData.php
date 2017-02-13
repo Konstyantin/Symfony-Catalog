@@ -32,11 +32,11 @@ class LoadOrderData extends AbstractFixture implements OrderedFixtureInterface
 
         $product = $manager->getRepository('ProductBundle:Product')->find(1);
 
-        $status = $manager->getRepository('OrderBundle:Status');
-
         $order = new Orders();
         $order->setUser($user);
-        $status->setStatus($order, 'active');
+
+        $manager->getRepository('OrderBundle:Status')
+            ->setStatus($order, 'active');
         $order->setCreatedAt(new \DateTime());
 
         $manager->persist($order);

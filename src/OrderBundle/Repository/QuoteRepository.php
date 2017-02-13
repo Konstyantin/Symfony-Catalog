@@ -22,17 +22,14 @@ class QuoteRepository extends \Doctrine\ORM\EntityRepository
      */
     public function getQuoteProduct($id)
     {
-        $repository = $this->getEntityManager()
-            ->getRepository('OrderBundle:Quote');
-
-        $query = $repository->createQueryBuilder('quote')
+        return $this->getEntityManager()
+            ->getRepository('OrderBundle:Quote')
+            ->createQueryBuilder('quote')
             ->join('quote.product', 'product')
             ->where('quote.order = :id')
             ->setParameter('id', $id)
             ->select('quote.id, product.name, product.price, quote.quantity')
-            ->getQuery();
-
-        return $query->getResult();
+            ->getQuery()->getResult();
     }
 
     /**
@@ -43,16 +40,15 @@ class QuoteRepository extends \Doctrine\ORM\EntityRepository
      */
     public function getSumPriceProduct($orderId)
     {
-        $query = $this->getEntityManager()
+        return $this->getEntityManager()
             ->getRepository('OrderBundle:Quote')
             ->createQueryBuilder('quote')
             ->join('quote.product', 'product')
             ->where('quote.order = :id')
             ->setParameter('id', $orderId)
             ->select('SUM(product.price * quote.quantity)  as sumPrice')
-            ->getQuery();
+            ->getQuery()->getSingleScalarResult();
 
-        return $query->getSingleScalarResult();
     }
     
      /**
@@ -108,9 +104,7 @@ class QuoteRepository extends \Doctrine\ORM\EntityRepository
      */
     protected function existsQuote($product, $order)
     {
-        $em = $this->getEntityManager();
-
-        return $em->getRepository('OrderBundle:Quote')->findOneBy([
+        return $this->_em->getRepository('OrderBundle:Quote')->findOneBy([
             'product' => $product,
             'order' => $order
         ]);

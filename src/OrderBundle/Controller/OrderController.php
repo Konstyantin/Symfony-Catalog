@@ -26,6 +26,9 @@ class OrderController extends Controller
 
         $quoteRepository = $this->get('quote.repository');
 
+        /**
+         * Get active user order
+         */
         $userOrder = $this->get('order.repository')->getActiveUserOrder($user);
 
         if ($userOrder) {
@@ -60,6 +63,10 @@ class OrderController extends Controller
 
         $order = $this->get('order.repository')->createUserOrder($user);
 
+        /**
+         * Find active User order and add to order new quote product if active order not
+         * found create new User order
+         */
         if ($product) {
 
             $this->get('quote.repository')->addQuote($product, $order);
@@ -115,6 +122,9 @@ class OrderController extends Controller
 
             $event = new SalesEvent($sales);
 
+            /**
+             * Call success Flash Messenger
+             */
             $dispatcher->dispatch(OrderBundleEvents::CONFIRM_ORDER, $event);
 
             return $this->redirectToRoute('catalog_homepage');
